@@ -4,7 +4,7 @@
 ## R and RStudio
 
 As an alternative to the Demography Rstudio server, we recommend using 
-[Berkeley's R Datahub](https://r.datahub.berkeley.edu/). Another option is to install the software on your own computer though course staff cannot support cannot help with technical issues that may arise with installation.
+[Berkeley's R Datahub](https://r.datahub.berkeley.edu/). Another option is to install the software on your own computer though course staff cannot help with technical issues that may arise with installation.
 
 ### Using Berkeley's R Datahub
 
