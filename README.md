@@ -10,7 +10,7 @@ As an alternative to the Demography Rstudio server, we recommend using
 
 - Log into the Berkeley R Datahub with your calnet credentials. 
 [https://r.datahub.berkeley.edu/](https://r.datahub.berkeley.edu/)
-    - [Berkeley Datahub] To **upload** files click on the upload button in the bottom right 
+    - To **upload** files click on the upload button in the bottom right 
 pane:
     
     <img width="507" alt="image" 
@@ -18,7 +18,7 @@ src="https://media.github.berkeley.edu/user/490/files/19bfdf78-7f40-421b-abc9-f8
 
     
     
-    - [Berkeley Datahub]To **download** files, make sure the box next to the file(s) you 
+    - To **download** files, make sure the box next to the file(s) you 
 want to download is ticked, click on the gear icon and select 'Export...' 
 from the drop-down menu.
     
