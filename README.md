@@ -15,7 +15,6 @@ pane:
     
     <img width="507" alt="image" 
 src="https://media.github.berkeley.edu/user/490/files/19bfdf78-7f40-421b-abc9-f88cdee80feb">
-    <img width="372" alt="image" src="https://user-images.githubusercontent.com/20607201/216711333-86b30ea1-53c5-48e9-a855-1daf80fcf6fe.png">
 
     
     
