@@ -1,0 +1,333 @@
+---
+title: "Econ/Demog C175 Lab 1: World Population Growth"
+output: html_notebook
+---
+
+# Overview
+
+This is the first lab of Economic Demography (Econ/Demog C175). Our
+goals in this first lab are:
+
+1. To get everyone started programming and doing their assignments
+   with R, RStudio, and bCourses.
+
+2. To use the exponential model to learn about world population history.
+
+> This document is written in the "R markdown" format and should be
+> read and edited within RStudio. The notebook interface allows you to
+> execute and display R-code within a single window. You can edit this
+> notebook directly and save it. We recommend you save it with a
+> different name (e.g., "world_lab_1_newname.Rmd") to avoid overwriting
+> your edits.
+
+> Viewing note: the labs are formatted using hard line-endings. Try 
+> resizing viewing window if lines are overflowing.
+
+# Writing and executing R commands
+
+In the RStudio Notebook, we mix executable R commands in with regular 
+written text by creating a "code chunk."
+To open a code chunk, we type ""```{r}" to start. To close the code
+chunk we type "```"" to end. Here are some examples:
+
+To print a string of text:
+```{r}
+print("Hello, world")
+```
+
+You can hit the green "play" icon to execute the chunk of code. Try
+modifying the chunk so it prints: "Hello, Berkeley". (Note the [1]
+just means that it is the first element of the displayed object. You
+can ignore this.)
+
+To add 2 + 2:
+```{r}
+2+2
+```
+
+To assign the value 4 to a variable named "x":
+```{r}
+x <- 4
+print(x)
+```
+
+The output of a chunk is only shown when you tell it to be. For example,
+```{r}
+x <- 3
+print(x)
+y <- 4
+## note: we don't tell R to show us the value of "y"
+z <- 5
+print(z)
+```
+Try to modify the above code chunk so it also prints the value the
+variable "y"
+
+
+# Using R to calculate exponential population growth rates
+
+```{r}
+## comments (within code chunks) begin with hashtags. They are ignored
+## by R.
+
+## We start by inputting world population sizes by hand, assigning
+## them to variables named "N.1900" and "N.2000" by using the assignment
+## operator: "<-"
+
+N.1900 <- 1650 # estimated world population in 1900 (in millions)
+N.2000 <- 6127 # same for 2000
+
+## we can display the value of the variable called N.1900 (hit the
+## "play" button)
+print(N.2000)
+```
+
+```{r}
+## We now calculate growth rate from 1900 to 2000, using our formula
+## for the slope of the logarithm of population.
+
+## in R when we write log(), this command will give us the natural log, which uses base e
+
+R.twentieth.century <- ( log(N.2000) - log(N.1900) ) / (2000 - 1900)
+R.twentieth.century
+```
+You should get "[1] 0.0131193", or about 1.3 percent.
+
+We can check this answer
+```{r}
+N.2000.check <- N.1900 * exp(100 * 0.0131193)
+N.2000.check
+```
+Which is "6127", the correct value for the world population in 2000.
+
+Now let's calculate the exponential growth rate for the
+fifty years from 1850 to 1900. You need to alter the code below to
+get the right answer.
+
+```{r}
+N.1850 <- 1262 # these are millions
+## Note: We don't need to re-enter N.1900, since variables are saved
+## across chunks.
+
+## Now modify the code below to give the right answer. (Hint: you need
+## to rename the variables N.2000 and N.1900 and change the dates
+## "2000" and "1900".)
+R.1850.to.1900 <- ( log(N.2000) - log(N.1900) ) / (2000 - 1900)
+print( R.1850.to.1900 )
+```
+
+You should get $0.00536155$, about 0.5 percent. (Hint: If you're still
+getting 0.0131193, it means you haven't modified the code and have
+assigned the new variable R.1850.to.1900 with the answer for 1900 to
+2000.)
+
+(Note: class demo ends about here.)
+
+
+# The *complete* history of world population
+
+First we're going to read in data from a file that we've placed on the course lab website.
+```{r}
+## Source: https://en.wikipedia.org/wiki/World_population
+## Notes: Population is in millions of people
+
+dat <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/world_population_data.txt", header = T)
+dat
+
+```
+
+Look at the data set, which has the form of a table with two labeled
+columns "pop" and "year". We're going to extract the contents into our
+two vectors year.vec and N.vec. (You don't need to understand
+this yet. We'll be learning about why this works in later labs.)
+
+```{r}
+million <- 1000000
+N.vec <- dat$pop / 1000 ## converts millions to billions
+year.vec <- dat$year
+names(N.vec) <- year.vec
+```
+
+Let's look at both of these
+```{r}
+year.vec
+```
+```{r}
+N.vec
+```
+
+## Our first plot
+
+```{r}
+plot(x = year.vec,
+     y = N.vec)
+```
+Wow, looks like world population is exploding.
+
+Let's see what is happening in terms of proportional changes (by
+taking logs)
+
+```{r}
+log.N.vec <- log(N.vec)
+plot(x = year.vec, y = log.N.vec)
+```
+Wow, it looks like even the proportional rate of growth has increased.
+
+You can now guess-timate the exponential population growth rate by
+eye-ing the "slope" of the log rate of population growth. The slope
+is equal to the calculated growth rate. For example, the 8000 year 
+period from -8000 to 0 saw an increase of about 4 in log-population 
+size. The slope is thus about 4/8000 = 0.0005. We can check this with our
+calculations below.
+
+
+## Calculating growth rates through history
+
+Calculate a vector of exponential growth rate.
+
+Here we will use the `diff()` function in R, which tells us the
+differences between elements in a vector.
+
+For example,
+```{r}
+x = c(4, 5, 7) ## this is a vector with three elements.
+diff(x) # gives us the differences between elements
+```
+
+We'll formulate this as the slope of the graph of log population sizes
+
+```{r}
+rise.vec <- diff(log.N.vec) # these are the "rise", the vertical distances between points
+run.vec <- diff(year.vec) # these are "run", the horizontal distances between points
+slope.vec <- rise.vec / run.vec
+R.vec <- slope.vec
+R.vec
+```
+
+Let's make a bit more readable by expressing the growth rates in percentage points, and rounding them
+```{r}
+R.vec.in.percent <- 100 * round(R.vec, 4)
+R.vec.in.percent
+```
+We see that growth rates increased for nearly 10,000 years, but have
+recently begun to decrease a bit.
+
+## Plotting the growth rates
+
+Let's try a plot:
+```{r}
+end.year.each.period.vec <- names(R.vec.in.percent)
+plot(x = end.year.each.period.vec,
+     y = R.vec.in.percent,
+     main = "Exponential Growth Rates of World Population through the Ages",
+     type = "l")
+```
+
+It looks like population growth rates have begun to decline. To see a
+bit better, we can graph only the more recent years
+
+```{r}
+plot(x = end.year.each.period.vec,
+     y = R.vec.in.percent,
+     xlim = c(1900, 2020),              # limit the x-axis to 1900 to 2020
+     main = "Exponential Growth Rates of World Population, since 1900",
+     type = "o")
+```
+
+# Congratulations
+
+You've finished all of the computing for the first lab!
+
+
+# Graded Questions 
+
+(See the syllabus for instructions on submitting your answers at 
+https://courses.demog.berkeley.edu/goldstein175/)
+
+
+1. [Multiple choice] Which of the following descriptions is best for
+   the history of human population growth?
+
+A. Constant exponential growth at a rate slighly larger than zero.
+
+B. Thousands of years of near zero growth, followed by centuries of
+accelerating growth, with a recent slowing of growth.
+
+C.  Thousands of years of essentially zero growth, followed by a one
+time increase in growth rates.
+
+D.  Alternating lengthy periods of positive and negative growth.
+
+
+2. [A numerical answer] How large would the world population be today
+   if annual growth rates had always been .0005 larger for the last
+   10,000 years?
+
+Hint 1: The rules of exponents tell us
+
+$$
+exp( (R + d) * t) = exp(R * t) * exp( d*t )
+$$
+
+Hint 2: To calculate exp(10000 * .0005), you can use a calculator or
+any other tool. You don't have to use R.
+
+Hint 3: You should get a population roughly 150 time as large as today.
+
+Note: Imagine we increased the reproduction rate of each generation by
+a tiny bit -- so, for example, instead of each woman having on average
+1 surviving daughter, imagine she had 1.015 surviving daughters. If
+generations were 30 years in length, then this would mean an increase
+in the growth rate by about log(1.015/1.00)/30 = .0005. So, the
+calculation we just did tells us what would have happened to the human
+population if fertility rates had always been just slightly, only 1.5
+percent, higher.
+
+
+3. [A numerical answer] How large would the world population in 2115
+   be if current exponential growth rates continue? Use 7.3 billion as
+   the population size in 2015 and assume $R = 0.01. You can do this
+   calculation however you choose (with R, by hand with a calculator,
+   or any other way.)
+
+5. [A short answer.] Do you think this estimate of the world
+   population in 2115 is likely to be too high or too low? Explain
+   your reasoning in a sentence.
+
+6. [Optimum Population Exercise] Imagine there's an island that can
+   only sustain a few people. The marginal product starts at 5 units
+   for the first person and declines by 1 unit for each additional
+   person until the MP of the 6th person is zero. Each person needs to
+   consume 2 units per year to subsist.
+   
+   (Hint: if you are having trouble here with the definitions of the
+   optimum populations, consult the lecture slides.)
+   
+   
+   (a) Fill in the Average Product row of the table below. (We
+   recommend you do this by hand to enhance understanding.)
+
+   (Hint: The average can be obtained by summing up the marginal
+   product to produce the total product and then dividing by the
+   number of people.)
+
+	| Population Size | 1 | 2  | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+  |-----------------|---|----|---|---|---|---|---|---|---|----|
+	| Marginal Product| 5 | 4  | 3 | 2 | 1 | 0 | 0 | 0 | 0 | 0  |
+	| Average Product | 5 | 4.5| 4 |   |   |   |   |   |   |    |
+
+   (b) What size population gives Sauvy's economic optimum?
+	
+   (c) What size population gives Sauvy's power optimum?
+	
+   (d) What size population is the "maximum" sustainable population?
+	
+
+7. [non-graded] About how much time (in hours and minutes) did it take you to complete this lab?
+
+
+Congratulations! You have completed Lab 1.
+
+
+
+
