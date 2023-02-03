@@ -1,5 +1,3 @@
-## Source: https://en.wikipedia.org/wiki/World_population
-## Notes: Population is in millions of people
 year	pop
 -8000     5
 1	200
