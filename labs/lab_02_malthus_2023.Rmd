@@ -1,0 +1,482 @@
+---
+title: "Econ/Demog C175 Lab 2: Malthus in Sweden"
+output: html_notebook
+---
+
+```{r}
+# Do not edit this chunk, but *do* press the green button to the answer key for the quiz info (the unreadable string below)
+tot = 0
+answer.key = "eJytVsGO2zYQvfsrBr7sbmswtuQkvRTBJjm0QJug2QWKXgrQ0tgiTJFaklrV+foMh5ItrS5B6stiaZLDee/Nm5F4Mm29Q7cRG/gV6O9CFNY5LIKQxnfDxvLDciEqZUK/fOiwRAOV9CB3tg2wWUOttFbWQIO20QjBlvJEt5TxwbVFoC3f3/6CjZYFHakQPt1Dp0IFJ9s6SE/CLYqDWMHN/Q0oA0+tDejvKBT+R/eMjKH6SBn+vH4DNdJFyOAnSuPfNyvoKlVUgE+t1PHnPjEKcAabMdhsDjabguXlWqw3oDxsCJor0IQZquxqqDjSP+gF/G4KRRwHqfVpBRIOznYU0cmAYPewFq+HdJIMC1HadqeVOUBQNZ/ppdmu4YTSUczbj5MjhIlJIq1A28NtdgevFuKLuIMHCx2Cr2yrSwr/TP8j6e1se6j0iTgd3vID20WFxdEn1AR6IQ5ONlXMorFNqxkeVMoH605iLEXOUuRzKfKpFLx8dCeiEwiNVkRpSWTMxMivJgZHuq/lVwJKqPGZKAhV5IDjjoB1pICvSSp0K94bZKqtIwVVOKUjlig4VPGIJGHevs3By44vxN/RB0i0xKslylD5CVdb5mo752o75Wr7vVxtr8bVdsJVIsFLKrL4LhD2BuXxQscIVsZWzuatJ20s3/ew+uUHWzfSxWypfBttQ+Qq0t0XX3x4wDxsF7Y1wb9An12tGfWRHilCcGhKH0+mlMhCHXkrOg5dTZoW5Bok1xCGoAqqH0eVJfe0C5tfXq8FTKOkzCECLqzZ06rEEnanlwWoTOFQepzwmjGvsy6XTbtcv/zD2iPsrUvKNeqI8X1m4mxlxvRuxuO12l8f6XGcwMVAtGDHRCM9IxW3r6RrJoBzBjzrJWljVEi8/Fu62AENlUjMOR2dYbtWN+kjRWyMYi9rKgQGI6GQQdKjtqFWym0mCLg3nEqjXFI4SvOn1KFq/Y2P1W+OZLV3I/w5l2E+N1LaWH7s8edDuVKIs6orJiKVWxw+lNVOljw4qMNTt+r6WdA0aF6WQH41K/WRzu/HOUW5cS8cXM6JOOURbpMLvAqKRhSPoDt6rBy+QdJR+WwVT7E4+IpK6ZLs1d91zPbl9oTOjOmc+SdtjOg8V21pO9NJR9b12jY8QLuor8GD5EccJr/6SjUCfos9303ARaNL722haFkmCrWN5O2UG06JGf0zB958IpJ/TACO1ad2cd8lvdgV4ufEKLmF2CO1s8vBMYs5szgzZd6P1zOLvHxAhL9iEUQV6Z9sBnVmyP8BlWN9bnk4ytgMqMd6+kaJH1Uc8WI4+haTaWxTuHNljlWBPWrNeY8Fddbjin8dLh+sHW6PD55vj0PG22L5DeepzpE="
+library(devtools)
+devtools::install_github("josh-goldstein-git/quizify")
+library(quizify)
+source.coded.txt(answer.key)
+```
+
+
+# Overview
+
+Sweden has the longest historical series of reliable vital statistics
+in the world. The Human Mortality Database, founded at Berkeley, has
+records for counts of births, deaths, and population size since 1751,
+well before the demographic transition.
+
+
+Malthus visited Norway and Sweden and describes his travels in his 2nd
+edition of (An Essay on the Principle of
+Population). [http://www.econlib.org/library/Malthus/malPlong7.html#Bk.II.Ch.I]. Please
+read these two chapters (Book II, Chapter I, "On the Checks to
+Population in Norway" paragraphs II.I.1 through II.I.8; and Chapter
+II, "On the Checks to Population in Sweden" paragraphs II.II.1 through
+II.II.9) for a better understanding about Malthus's thinking on how
+the environment and human custom interact to produce demographic
+outcomes.
+
+
+In this lab, our goals are:
+
+1. To assess if the 18th century Swedish series of births and deaths is
+consistent with Malthusian theory and see if we can detect a weakening
+of Malthusian regime in the 19th and 20th centuries.
+
+2. To learn how to use custom functions like malthus.plot.fun() by
+   changing their arguments (without rewriting the functions themselves).
+
+3. To use the non-graded interactive questions we have written for you
+(e.g., Q.1.1, Q.1.2).
+
+Note: there are TWO types of questions in Lab 2. First, we have the
+non-graded interactive questions in the special code chunks (which we
+did not have in Lab 1). These you do in RStudio. The goal of these is
+to help your learning of the material, not to assess you. Second, as
+in Lab 1, we have questions at the end that will be graded. These you
+submit.
+
+
+
+# Part 0: Import the data
+
+
+```{r}
+
+## Note: you need to run this code to do the lab. But understanding it
+## is optional.
+
+## Read in the data from a file on our server
+df <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/SWE_pop_birth_death.txt", header =T)
+
+
+## Display the first few rows of the object "df"
+head(df)
+
+## Create a separate object for population size, births, deaths, and year.
+## Note: "read.table()" imports as a "data.frame", which stores each
+## column of a data set as a separate element, which can be accessed
+## with the dollar-sign, as below.
+N <- df$N                               # population size
+B <- df$B                               # births
+D <- df$D                               # deaths
+year <- rownames(df)
+
+## Note: N, B, D, and year are vectors. In the last lab we used ".vec"
+##   in the names of the vectors. Here we omit this to make our code
+##   more readable.
+
+```
+
+
+# Part 1: Inspect and understand the data
+
+Plot the history of Swedish population size, counts of births, and counts of deaths.
+
+```{r}
+plot(year, N, type = "l")
+```
+
+Q1.1 How big is the population of Sweden in 1800
+
+A.  about 20 thousand
+
+B.  about 200 thousand
+
+C.  about 2 million
+
+D.  about 20 million
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.1 = NA
+quiz.check(answer1.1)
+```
+
+To get a more readable plot we can change units
+```{r}
+million = 1000000
+N.millions <- N/million
+plot(year, N.millions, type = "l")
+```
+
+Q1.2 What is the average (exponential) growth rate of Sweden from 1751
+to 2014.
+```{r}
+( log(N[year == "2014"]) - log(N[year == "1751"]) )/ (2014 - 1751)
+```
+Which value is this closest to?
+
+A.  1 percent
+
+B.  6 percent
+
+C.  0.5 percent
+
+D.  0.005 percent.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.2 = NA
+quiz.check(answer1.2)
+```
+
+
+```{r}
+# plot of Deaths by year, with type = "line"
+plot(x = year, y = D, type = "l")
+```
+
+Q1.3. In what year did Sweden have the most deaths?
+
+A.  In about 2000, because the population age structure shifted to older ages.
+
+B.  In about 1850
+
+C.  In 1773
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.3 = NA
+quiz.check(answer1.3)
+```
+
+
+Plot the births using code similar the code for deaths, which is given
+below. (Hint: You just need to replace the "y" variable.)
+```{r}
+# This is the code for deaths by year (modify it slightly).
+plot(x = year, y = D, type = "l")
+```
+
+Q1.4 When were births at their low?
+
+A.  In the great depression (1930s)
+
+B.  In the low fertility of the economic recession at the end of the 1990s.
+
+C.  In about 1773
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.4 = NA
+quiz.check(answer1.4)
+```
+
+
+
+# Part 2: Time trends in crude rates (per capita births and deaths)
+
+Let's get the births and deaths on a per capita basis. Demographers
+call these crude rates. ("Crude" because we don't refine the
+population at risk -- for example, we include women and men in the
+denominator of the birth rate.)
+
+```{r get.rates, fig.height=5}
+cbr = B/N                               # crude birth rate
+cdr = D/N                               # crude death rate
+par(mfrow = c(2,1))                     # two panels in one plot
+plot(year, cbr, type = "l", main = "Crude birth rates, Sweden")
+plot(year, cdr, type = "l", main = "Crude death rates, Sweden")
+```
+
+Q2.1 The time trends in this plot are:
+
+A.  Basically the same as the counts
+
+B.  Quite different from the counts
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.1 = NA
+quiz.check(answer2.1)
+```
+
+Q2.2. In what year was the peak death rate
+
+A.  In the same year as the peak number of births
+
+B.  In the the most recent year
+
+C.  In 1773, the same year as the peak number of deaths
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.2 = NA
+quiz.check(answer2.2)
+```
+
+Q2.3 Google "1773 Sweden". What happened in this year?
+
+A.  There was a war
+
+B.  There was a famine
+
+C.  The borders of Sweden changed.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.3 = NA
+quiz.check(answer2.3)
+```
+
+
+# Part 3: Detecting Malthusian dynamics
+
+In class, we showed the two-panel graphical explanation of the
+Malthusian model. In the upper panel, we showed the relationship
+between wages and birth and death rates. In the lower panel, we showed
+the relationship between population size and wages. Together, these
+two panels create the feedback loop for a very low growth Malthusian
+economy and population.
+
+Here, we will look at whether one part of the Malthusian world appears
+to hold: that births and deaths go in opposite directions in good and
+bad times. We don't have a measure of wages, so our inference is going
+to be indirect, looking at the relationship between births and deaths
+by year.
+
+Q3.1. What relationship between births and deaths would be consistent
+with a Malthusian economy
+
+A.  As births go up, deaths go up
+
+B.  As birth rates go up, deaths rates go up
+
+C.  As births go down, deaths go up
+
+D.  As birth rates go down, death rates go up.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.1 = NA
+quiz.check(answer3.1)
+```
+
+```{r}
+malthus.plot.fun <- function(from.year, to.year)
+{
+  ## a scatter plot of crude birth and death rates
+  ## note: this function assumes that cdr and cbr already exist.
+  ## If you're having problems, try running the code chunk above
+  ## that creates the cbr and cdr
+  my.years <- from.year:to.year
+  s <- year %in% my.years
+  plot(cdr[s], cbr[s], type = "n",
+       xlab = "Crude death rate", ylab = "Crude birth rate")
+  abline(lm(cbr ~ cdr, subset = s))
+  text(cdr[s], cbr[s], year[s], cex = .5)
+  my.cor <- round(cor(cdr[s], cbr[s]), 2)
+  title(paste("Birth and Death Rates in Sweden, from", from.year,
+              "to", to.year, "\n Correlation:", my.cor))
+}
+
+## now let's plot the first 50 years
+malthus.plot.fun(from.year = 1751, to.year = 1800)
+```
+Q3.2 Which of the patterns in Q3.1 (A,B,C,or,D) does this match most closely?
+
+```{r}
+##  "Replace the 'NA' with your answer (e.g., 'A' in quotes)"
+answer3.2 = NA
+quiz.check(answer3.2)
+```
+
+
+Q3.3 Is the pattern seen from 1751 to 1800 consistent with Malthusian theory?
+
+A. Yes
+
+B. No
+
+```{r}
+##  "Replace the 'NA' with your answer (e.g., 'A' in quotes)"
+answer3.3 = NA
+quiz.check(answer3.3)
+```
+
+We see that birth rates are low when death rates are high (e.g.,
+in 1772 and 1773). Even if we ignore these unusual years,
+there is a generally negative relationship. Now plot the relationship
+for the following time periods.
+
+1801-1850
+```{r}
+## Modify the code we used for 1751 to 100 appropriately.
+malthus.plot.fun(from.year = 1751, to.year = 1800)
+```
+1851-1900
+```{r}
+## Modify the code we used for 1751 to 100 appropriately.
+malthus.plot.fun(from.year = 1751, to.year = 1800)
+```
+1901-2014
+```{r}
+## Modify the code we used for 1751 to 100 appropriately.
+malthus.plot.fun(from.year = 1751, to.year = 1800)
+```
+
+# Part 4: Lab write up. Please limit each answer to 50 words or less.
+
+> 1. Turn in your plot of the relationship between birth and death
+>    rates from 1801-1850.  (Note: to save a graph from your RStudio
+>    notebook, right click on it with your mouse and "Save image as
+>    ...")
+
+> Completely optional: for those familiar with R, you can add your
+> name to the plot using the text() function in R. Try adding it in
+> the lower right of the plot.
+
+> 2. In which of the periods you explored above does the Malthusian
+>    relationship first break down? What is your basis for judging?
+>    What happens to the _time trends_ in birth and death rates that
+>    makes the Malthusian relationship go away?
+
+> 3. What does Malthus say is the main determinant of birth rates in
+>    *Norway*? (Hint: see II.I.3 and subsequent paragraphs in the
+>    reading). Would this suggest that births would fall in the *same*
+>    year as deaths would rise, or a year or two after?
+
+> Questions 4 and 5: Ireland and the Potato
+
+> Potatoes are relatively easy to grow and can be stored year-round to
+> provide a nutritious source of food even in wintertime. In the late
+> 18th century, the introduction of the potato as a staple crop
+> changed the agricultural economy of Ireland by increasing the amount
+> of food that farmers could produce and store. In Malthusian terms,
+> this can be represented as an increase in the wage at every
+> population size – a shift in the wage curve. (If it’s helpful, think
+> of “wage” as calories – at a given population size, the land can now
+> provide more calories per person.)
+
+> In the Malthus app found at
+> https://berkeley-demog.shinyapps.io/new-malthus/, we can simulate
+> this by moving the wage level from its default of 1 to a higher
+> level, such as 1.18. Do this, and then click “play” (small blue
+> triangle at the bottom of the page). Note that in the app, the
+> “short term” consequences of a shift begin at the vertical dotted
+> line at time zero. Use the simulation to answer the following
+> questions:
+
+> 4. Describe in words what happens in the *short term* as a result of
+>    the introduction of the potato. What happens to wages immediately
+>    after the potato is introduced? What happens to birth and death
+>    rates? (Describe the direction of change – you don’t have to give
+>    precise numbers.)
+	
+> 5. According to Malthus, in the long term, should the population of
+>    Ireland return to its initial size? Why or why not?
+
+> Questions 6 to 8: pen-and-paper questions
+	
+> 6. On a separate sheet of paper, draw your own Malthusian graph
+>    system. (We recommend drawing by hand.) The top graph should show
+>    birth and death rates as a function of wages; the bottom graph
+>    should show population size as a function of wages. Label all of
+>    the axes and mark the equilibrium state on both graphs by marking
+>    b*, d*, w*, and N* (equilibrium birth rate, death rate, wage
+>    rate, and population size) on the appropriate axes.
+
+> 7. Imagine that marriage norms change and people start getting
+>    married at later ages and that this results in a lower birth rate at
+>    every wage level. Show this change on your graph by drawing a
+>    second, dotted, birth rate line. Mark the new equilibria as b’,
+>    d’, w’, and P’. Describe in words what happened to the
+>    equilibrium wage level and population size.
+
+> (Optional: check your pen-and-paper answer of 7 using the Malthus
+> App.)
+
+
+> 8. Imagine that a new group of immigrants arrives. Their
+>    technologies and social behaviors are identical to the
+>    natives. Describe in words what affect this would have. Would it
+>    cause a curve to shift, or a temporary move along one of the
+>    curves? Which curve, and in which direction would the shift or
+>    move be?
+
+> 9. Review questions on optimum population: from last week: 
+> a.  What would happen to optimum population size from the point of
+>     view of Sauvy's economic optimum if overhead (e.g., tribute
+>     paid to outsiders) were increased? 
+> b.  True or false, explain in one sentence. The amount of overhead
+>     has no impact on Sauvy's power optimum.
+
+> 10. [non-graded] About how many hours did it take you to complete this lab?
+
+
+Congratulations! You have completed Lab 2.
+
+
+# Notes on possible extensions of this lab
+
+If you want to do a mini-project later in the semester 
+(more details on mini-projects to follow), here are some possibilities for 
+extending this analysis. 
+You don't have to do any of this, although you might want to read through 
+both to get additional ideas and to put what we've done in context. 
+
+* Analyze changes rather than levels. Since over the course of the
+  demographic transition, the levels of both fertility and mortality
+  fall, this creates some positive correlation in levels over time.
+  One way to remove this time-trend effect is to look at differences
+  rather than levels. Here is some sample code to get you started:
+  
+```{r}
+b = B/N
+d = D/N
+db = diff(b)
+dd = diff(d)
+#### all periods
+par(mfrow = c(1,1))
+plot(db, dd, type = 'n')
+text(db, dd, year)
+title(round(cor(db, dd), 2))
+#### now for sub-periods
+par(mfrow = c(2,2))
+s = year %in% 1751:1800
+plot(db[s], dd[s], type = 'n')
+text(db[s], dd[s], year[s])
+title(round(cor(db[s], dd[s]), 2))
+## you could see if correlation is
+## still high removing outlier ...
+s = year %in% 1801:1850
+plot(db[s], dd[s], type = 'n')
+text(db[s], dd[s], year[s])
+title(round(cor(db[s], dd[s]), 2))
+s = year %in% 1851:1900
+plot(db[s], dd[s], type = 'n')
+text(db[s], dd[s], year[s])
+title(round(cor(db[s], dd[s]), 2))
+s = year %in% 1901:1950
+plot(db[s], dd[s], type = 'n')
+text(db[s], dd[s], year[s])
+title(round(cor(db[s], dd[s]), 2))
+````
+
+* Look at other countries, either in Human Mortality Database, for
+  which there may be other countries with 19th century data, or
+  elsewhere.
+
+* Throughout, we have only looked at one half of the Malthusian dynamic:
+  the potential effect of conditions (interpreted as wages) on births
+  and deaths. The other half asserts that population size itself is
+  what is driving the change in wages. How could this be looked at
+  empirically? How have other researchers tried to answer this? Is
+  there any way to get similar data and re-examine?
