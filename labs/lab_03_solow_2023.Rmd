@@ -1,0 +1,318 @@
+---
+title: "Econ/Demog C175 Lab 3: Solow model analysis"
+output: html_notebook
+---
+
+```{r}
+# Do not edit this chunk, but *do* press the green button to the answer key for the quiz info (the unreadable string below)
+tot = 0
+answer.key = "eJytlE1v2zAMhu/+FVwu2QBXQH3fIesuuxTDVqDYUbEZW4gsufqIm38/UpIzd2mxHXoxbMl6ST58KfFk4rhHdytu4TPQsxKtdQ7bIKTx87KxudtUYlAmlM+HAWGUrldGapic7WIbwBpo5aQCLSkPgX6RXaeCsvyTjWGKAQ7OjhVJgzKtwxENHTssx+p0yGs7Ia/yR9EmDThEk19mFYZKOPQTpQnBwlFQdsr44PKvvmT5AyctW0xC97t0Ds42OsilwUcUvahhu9tSOvAUbUD/iaTwmc4ZyVL/Xy8+RXqhbNY1VOKNImqYB9UOwNlM2gbwg50963TYamWU6UudCZT06DnHEo/rvTSuSY1rrhvHG5svl8alz5+IKWbv5DRcY2veDVtSeuSjd3a/v/lqY6+lX6NgeSdDavVSJL1QHSuoz7IN+gx7ScotdjkZPpkx8YEXQg5DdKauxBFxYoi8uQj6QbolnB1pnWoO0oQVzib1u7meg7yx2RWc5fOOFKIOGU9iyg7wBFll/16ZZt3hv/k372bbovQLfQ0qBfVBab0KDd8OLEoMxompZLOte1W/Aha0tUcPWh2RdUsTPIzWJdPP+kzs02QqqalxB+tAEwOEk9SR/iSp4wveTeJ9Zd+8seL9b/s272bfovSIYOyc2hkGGXJDudLFUDPCIE804CQ7W3dEV+eJ78nNgRZfdR8vInnPjmfqzAd4GFSa/JljfCe0IZzpjnQ981KZNqEkYw1ymtAI2HmKYGcqjNvj4UCs60ugP9lUYuauL9NVE4IyQtS85RLOY/dmqgQm5aracocLuCdkmUjJduvhpHCGNNW5GBwn5VTLJqhE59QJTYruovFkumgSHpuLHqU5cyzrlA+e70YLe9QKTwU4Xwuc4NqfN2Q8v/CkenUnNr8B4HpPog=="
+if(!require(quizify))
+library(quizify)
+source.coded.txt(answer.key)
+```
+
+# Overview
+
+In this lab we will work with the neo-classical growth model developed
+by Solow and Swann. Our goals are:
+
+1. To derive some analytical properties of the model, assuming a
+   Cobb-Douglas production function.
+
+2. To understand the dynamics of income and savings using a
+   simulation app.
+
+3. To understand how the capital intensification may or may not lead
+   to increasing inequality, depending on the nature of the production
+   function.
+
+The order of this lab will be slightly different in that we will start
+with some mathematical derivations and then go on to do some computing
+afterwards.
+
+(In order to display the equations, you may need to click on them with
+the mouse.)
+
+# 1. Introduction
+
+In the Solow model, the capital per worker and output per worker are
+in their steady state when investment exactly balances population
+growth and depreciation. This is when
+$$
+s y(k) = (n+d) k.
+$$
+
+# 2. Analytical questions
+
+Note: In this lab, we are beginning with some analytic,
+pencil-and-paper problems. You'll turn these in later as your answers
+to problems 1, 2, & 3.
+
+
+1. Let the production function be Cobb-Douglas, with $y(k)=k^{0.4}$.
+Assume that the savings rate is 20 percent, population growth is 1
+percent, and depreciation is 4 percent. 
+
+(Technical note: The production function often has a constant "A",
+such that $y(k) = A*k^\alpha$. For simplicity we omit this term, or,
+equivalently, assume A = 1.)
+
+For example, for the steady-state level of capital per worker, we
+substitute the production function $y(k) = k^a$ into the steady-state
+condition above to give
+
+$$
+s y(k) = s k^\alpha = (n+d) k
+$$
+
+Re-arranging, then gives us a formula for capital per work k in the steady state:
+
+$$
+\left( s \over {n + d} \right)^{1 \over {1-\alpha} } = k
+$$
+
+You can then substitute the values given in the problem and provide
+your numerical answer.
+
+a) What is the steady-state level of capital per worker?
+
+b) What is the steady-state of output per worker?
+
+c) What is the steady-state level of consumption per worker?
+
+
+2. Now assume population growth is instead -0.5 % (approximately the
+   growth rate when every couple has 1.7 children), but that all other
+   parameters stay the same.
+
+a) What is the new steady-state output per worker? Is it higher or
+   lower than with faster population growth?  [A numerical answer and 1
+   sentence response is fine.]
+
+b) What is the new steady-state of consumption per worker? Is it
+   higher or lower than with faster population growth? [A numerical
+   answer and 1 sentence response is fine.]
+
+
+# 3. Questions with the App
+
+For the following question, you may find it useful to experiment with
+the "Solow_2017" app available at:
+```{r}
+browseURL("https://berkeley-demog.shinyapps.io/solow/")
+```
+(You can also use the app to get a rough check your answers to the
+analytical questions above.)
+
+Assume your initial parameters are the default s, n, d, alpha, d, and
+k values on the app.
+
+3. Assume a technological innovation, like the availability of
+   electricity, increases output per person at all levels of the
+   capital/labor ratio by 30% (You can implement this in the app by
+   moving the slider on "Output level y'" from 1 to 1.3).
+
+a) Describe in words what happens in the short run to output. (E.g.,
+   how large is the immediate increase in output?) [ 1 sentence ]
+
+b) Describe in words what happens in the long-run. (If the long-run
+   steady state is higher than the short-term level of output right
+   after the technology change, what is causing this additional
+   increase?) [2 sentences]
+   
+# 4. Growth and Inequality (skip in 2021)
+
+(Note: We're going to skip this section this year, but you are welcome
+ to do as self-study, especially if you're an econ major.)
+
+In this part of the lab we will use R to calculate the shares of
+income from capital and from labor using two different production
+functions. In a competitive market, the returns to capital and labor
+are equal to their marginal product. In our case, we are working with
+per capita income, so the only variable is the amount of capital per
+worker, k. The derivative ("change") of the production with respect to
+k is the marginal product and the rate of return of capital.
+
+## i. Cobb-Douglas
+
+Here we use a production function of the form
+
+$$
+y(k) = k^\alpha
+$$
+
+```{r}
+k <- seq(1, 20, .1)
+alpha <- 1/3
+y.of.k <- k^alpha
+## numerical slope = rises/runs
+mp.k.numeric = diff(y.of.k)/diff(k)
+plot(k[-1], mp.k.numeric)
+## analytic derivative, taking derivative of k^alpha with respect to
+## k.  (don't worry about this if you haven't had calculus)
+mp.k.analytic = alpha * k^(alpha - 1)
+lines(k, mp.k.analytic, col = "red", lwd = 2)
+## we see they match quite well
+```
+
+Q1.1 Is the marginal product on capital
+A. Constant with increases in capital
+B. Rising  with increases in capital
+C. Declining with increases in capital
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.1 = NA
+quiz.check(answer1.1)
+```
+
+Now let's see what happens to capital's share of total output. We
+assume here that the rate of return is equal to its marginal
+product. So as we increase the capital per person, we will have two
+countervailing forces: the amount of capital will increase, but the
+rate of return will decrease. Let's see what effect dominates or if
+the two effects cancel each other out.
+
+```{r}
+mp.k <- mp.k.analytic
+output.from.capital.per.worker <- mp.k * k
+total.output.per.worker <- y.of.k
+output.from.labor.per.worker <- y.of.k - mp.k * k
+capital.share <- mp.k * k / y.of.k
+```
+
+Now let's see what happens to capital share as we increase k
+```{r}
+plot(k, capital.share)
+```
+
+Q1.2 Does the capital share of income
+A. Rise with increases in capital
+B. Stay constant with increases in capital
+D. Fall with increases in capital
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.2 = NA
+quiz.check(answer1.2)
+```
+
+## ii. An alternative production function
+
+Let's modify the Cobb-Douglas production function slightly so that it
+is
+
+$$
+y(k) = k^\alpha + k/10
+$$
+
+Modify the code below to work with this new production
+function. (Hint: the derivative with respect to k of $k^\alpha + k/10$
+is $\alpha * k^{\alpha-1} + 1/10.$)
+
+
+```{r}
+k <- seq(1, 20, .1)
+alpha <- 1/3
+y.of.k <- k^alpha ### <--- MODIFY THIS LINE.
+## numerical slope = rises/runs
+mp.k.numeric = diff(y.of.k)/diff(k)
+plot(k[-1], mp.k.numeric)
+## analytic derivative, taking derivatitive of k^alpha with respect to k.
+## (don't worry about this if you haven't had calculus)
+mp.k.analytic = alpha * k^(alpha - 1) ### <--- MODIFY THIS LINE, TOO!
+lines(k, mp.k.analytic, col = "red", lwd = 2)
+## you should see that they match quite well
+```
+
+Q2.1 Is the marginal product on capital still declining
+A. Yes, but perhaps less quickly
+B. No, it is no longer declining
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.1 = NA
+quiz.check(answer2.1)
+```
+
+Now let's see what happens to capital's share of total output.
+
+```{r}
+## Note: here the variables carry over from the previous chunk. So, as
+## long as you have executed all of the chunks up to here, they will
+## be from the 2nd production function.
+mp.k <- mp.k.analytic
+output.from.capital.per.worker <- mp.k * k
+total.output.per.worker <- y.of.k
+output.from.labor.per.worker <- y.of.k - mp.k * k
+capital.share <- mp.k * k / y.of.k
+## graph our result to see what happens to capital share as we
+## increase k
+plot(k, capital.share)
+```
+
+Q2.2 Does the capital share of income
+A. Rise with increases in capital
+B. Stay constant with increases in capital
+D. Fall with increases in capital
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.2 = NA
+quiz.check(answer2.2)
+```
+
+# Part 5: Lab write up.
+
+1. (Question 1 in the analytical section at the beginning of lab)
+
+2. (Question 2 in the analytical section at the beginning of lab)
+
+3. (Question 3 in the questions with the app section above)
+
+4. What level of population growth would maximize income per capita?
+   Is this a plausible goal for a society? (Hint:you don't need
+   calculus for this problem. Try thinking about it with a diagram.)
+   [1 or 2 sentences is enough here.]
+
+
+## Robots and depreciation? (skip this year)
+
+Many are worried about the effects of robots on inequality. But
+perhaps robots will also depreciate more quickly than earlier forms of
+productive capital. (The next two questions are on this topic.)
+
+5.  (skip) What would happen to capital per worker if we invested our
+    savings in fast depreciating robots instead of slower-depreciating
+    traditional productive capital? (Please make the (unrealistic?)
+    assumption that, per dollar, robots have the same effect on
+    production as traditional capital.) [Two or three sentences is
+    fine.]
+
+6.  (skip) Assume, as per Piketty (and per our 2nd example of a
+    production function above), that the capital share of output
+    increases with capital intensification and decreases when capital
+    per worker declines. Would our hypothetical case of faster
+    depreciation increase inequality or reduce it? [Two or three
+    sentences is fine.]
+
+## Immigration
+
+A country is considering two immigration policies. What would Solow's
+model predict for each of these policies? (Note: both of these
+examples leave out consideration of the human capital of migrants,
+which in a more realistic model could be important.)
+
+7. Allow a one-time wave of immigrants, but only those who bring
+   exactly the amount of capital needed to leave the steady state
+   capital/labor ratio unchanged. What would happen to per capita
+   income in the short and long-run? (Hint: think about the time path
+   of $k$) [Answer in a sentence or two.]
+
+8. Allow a one-time wave of penniless immigrants who bring no capital
+   at all. What would happen to per capita income in the short and
+   long run? (Hint: think about the time path of $k$). [Answer in a
+   sentence or two.]
+
+Congratulations! You are finished with Lab 3.
