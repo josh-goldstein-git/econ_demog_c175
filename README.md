@@ -2,9 +2,9 @@
 
 ## Open Whole Repo on Datahub 👉🏼 [![Repo on DataHub](https://img.shields.io/badge/Launch-UCB%20Datahub-blue.svg)](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&urlpath=rstudio%2F)
 
-## Malthus [![Malthus Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fnew-malthus%2F)
+## Malthus (lab 2) [![Malthus Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fnew-malthus%2F)
 
-## Solow [![Solow Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fsolow%2F)
+## Solow (lab 3) [![Solow Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fsolow%2F)
 
 
 
