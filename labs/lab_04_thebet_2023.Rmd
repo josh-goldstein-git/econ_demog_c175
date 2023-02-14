@@ -26,8 +26,7 @@ We're going to ask the following:
    labs. Here the important point is to report _what_ you find, not to
    find a specific "right" answer.)
 
-4. Finally, we will use our Malthusian "harvest" model to learn about
-   renewable resources. 
+4. Finally, we will use our Malthusian "harvest" model to learn about renewable resources. 
 
 
 ```{r}
