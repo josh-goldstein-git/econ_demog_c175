@@ -27,9 +27,7 @@ We're going to ask the following:
    find a specific "right" answer.)
 
 4. Finally, we will use our Malthusian "harvest" model to learn about
-   renewable resources. (We may or may not get to this in class this
-   week. If not, then this part of the lab will be pushed into next
-   week, when we have no lab).
+   renewable resources. 
 
 
 ```{r}
