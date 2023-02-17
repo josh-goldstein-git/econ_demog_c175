@@ -495,7 +495,7 @@ Well done. You are finished with the computing portion of Lab 4.
 >     the time axes of the graph)? (You can either report the value
 >     you find with the "app" or your theoretical answer)
 
-> 6.5 Would harvest rates be higher in year "1" if we harvested at the
+> 6.5 Would harvest yield be higher in year "1" if we harvested at the
 >     sustainable rate found in part 6.3, or if they were .02 higher
 >     than the sustainable rate? 
 
