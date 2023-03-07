@@ -101,7 +101,7 @@ We can see that the pace of mortality improvement was steady the
 entire time.
 
 ```{r}
-e0.data <- read.table("/data/japan_e0_female.txt")
+e0.data <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/japan_e0_female.txt")
 year.vec <- e0.data$Year
 e0.vec <- e0.data$Female
 plot(year.vec, e0.vec, type = "o",
