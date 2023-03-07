@@ -39,6 +39,8 @@ the effect of fertility on consumption in the macro-economy.
 # Do not edit this chunk, but *do* press the green "play" button in the top right corner to load the answer key for the quiz info (the unreadable string below)
 tot = 0
 answer.key = "eJy9V01vGzcQvftXDIwWSgB3oS+n7aEHp26KFGkKOAaKHKndkZY1l9yQXMv693kzu5Il7VUo4I+llhzOvJl5b1R8812z4jgrZvQb4e9VUYYYucyF8Wm7f3F9f31V1NbnYflnCBvHNPnoy8gmcUXWV12J/2YVYrbBUzSZ8SnNfn337oaMJ5NamKWwvioM/WVa4zkxrYN7otS1HFO2crCY4CrrU45dKes0XPnArTMlU66ZPt/R1uaadqGL1PtJb7jYFDc0uZvIrd+6kDm9hSl+wTlvxNT/4Ty9eYSDnl+w2cNGovl0/u5tAU8OUM8V6vkYanlx/f4AtS4/2TUTgsA+48sdmUwrGxH8JnCidQyNuN1l+vmWchief7ml8AxQBKwSIMHXsKYFVVyaitMI4fnFEFZLChDVJtGKy9D0Jrchuoocw4FIqwDjsCIvHD+zE/+Aow3VVeHOQ/aVbmzFO+yzTRsRXsM+H8O6UFgXY1gXp7Dq8qPvMyp21xb5oxi2Ylw+aEyO9kVdCm3nNDQx2/mcCnqsA/A0G5TQdEIm4hnJCCifFn692Eb372313mnlaN7SDSXrSymvtfGZGpSccTbvpFaQsx05OAJoFMRRphYXy5Ra+sAoeL29zxZ7vT4F/PObgxu4aV93SSJWU6hvn61xbid15ay3OIFthtbGRnyaMpK902Y6ztNS87Qc50leXP9+yJMuP4escaCQTCewizkbqBSnzBPTs3EdGmGDVs5a8XgxK6YF4eRVMXl/dNTlOnSbWmHj9bpvaCRS/A59LX69f9By++cOD0hIiXqNN1eFZpLz4Vi/+7HfZJqV3XShG/fV8mLZ2oNRi7O4cxuRn4Lu8MQT5ygxI1Dk7hjpW0X6doy0vLi+OyDdL2nYhbwBSumuG1qBTCoQjZ/kvbsSxjdArnw3ivj2YhGrpccasboOAWJjxS37ioUSJDWoPO6JYXLPTdhE09a2pHv7bLGpmrwiMVfin4/VbX6qbsPy/U5o6lnLouspInXx2aLUiJ0igy7esvZ+XxEWFLYT675SIRhKajad/vh6dmCELRjRD6kjMYb9XAmQuLbMXWQ1Di75T7JhVEgSvxyR0Tnu84tp5GDpKyPCLODjpwYjNMajzQ3aB12Gkpco0GnbOihTR4u0SBCnEW9DB86vzfMRASz0hsU4Gf2LAwEMS8hp7JHupW02W9AONAWtkzCr4JyJ53gsLobHYOkPEyWnCRplnoTkEpLYN6OzYKEflrc30+lUJEx+U/DIIaqxxsbOVzjnwEF25U6AmCsQo0FgcToIDMtPIejNqukxpPSTSPw55ywupuV7SzZJlLwHoAxQLzRYb9Nxko986ppWVe+NRi0+la7DqEGM0UrtSfOgUnzCTcUxCgtFYaTbi1PdXux1ux8FDq0gy6FAKotejGioQXRTP1SEFtOegRiwQT6g2+NquZSqvjoZoow5KFIBx1YDb+YArZfOrvqrRWuUNfb4SdNxP10kCI7wWwCvgw+sdF5Fq915/DKIVBbRWJD1wA0HbJeK7Uhr+xdH2C7PKwwGGEobosoh+DQ01ut6YLGK11D81yBMeiKL2SwLY+g4BM+l88EVkMeNzECRUiOsHenLwygHl9LKwZIymEkAVspX5xcxKmgB/7VF5Uoox7WrcRwlJ3JjcEvnSwwVG66OkF0qLSzHJLY8JbFh+bfJZT1M4+DJNu9n3zK4rsGorFPxeS8vL8Zig6V/5UKM4zpmlk7GWHz1QZX1Qo/QV2aFwa0ftJKTmhNZe22s12k1lTVa23FBXw5UyC5xT8zWPw18LbNKrUV7VQTgjAKgxw8P+O7Ut8QHm6Dk9KVrW9imB53ucAhfCoALPGCw+3c6Ntuj"
+library(devtools)
+devtools::install_github("josh-goldstein-git/quizify")
 library(quizify)
 source.coded.txt(answer.key)
 ```
@@ -63,7 +65,7 @@ After the War, fertility began to decline very rapidly.
 
 ```{r}
 ## get TFR data from a file on our server
-tfr.data <- read.table("/data/japan_tfr.txt")
+tfr.data <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/japan_tfr.txt")
 year.vec <- tfr.data$Year
 tfr.vec <- tfr.data$TFR
 plot(year.vec, tfr.vec, type = "o",
@@ -134,7 +136,7 @@ Now we are ready to explore the history of Japan's age-structure.
 
 ```{r}
 ## read in matrix of population counts
-tmp <- read.table("/data/japan_pop_matrix_1947_2015.txt")
+tmp <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/japan_pop_matrix_1947_2015.txt")
 colnames(tmp) <- gsub("X", "", colnames(tmp))
 Nxt.mat <- as.matrix(tmp)
 # ages 0-110 are rows of the matrix, years 1947-2015 are on the columns
@@ -305,7 +307,7 @@ rates found in the Human Fertility and Human Mortality Databases.
 
 ```{r}
 ## you can skip the details on how this is read in
-tmp <- read.table("/data/japan_projection_matrix_2014.txt")
+tmp <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/japan_projection_matrix_2014.txt")
 colnames(tmp) <- gsub("X", "", colnames(tmp))
 A.2014 <- as.matrix(tmp)
 ## but do let's look at the first row
@@ -467,7 +469,7 @@ Let's look at the estimates of production and consumption by single years
 of age in Japan.
 
 ```{r}
-df <- read.table("/data/japan_nta_schedules.txt")
+df <- read.table("https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175_2023/main/data/japan_nta_schedules.txt")
 x <- 0:110
 cx <- df$cx                             # consumption by age
 yx <- df$yx                             # production by age
