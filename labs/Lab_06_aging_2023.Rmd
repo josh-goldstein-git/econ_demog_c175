@@ -1,0 +1,861 @@
+---
+title: "Econ/Demog C175 Lab 6: Population Aging -- Are we having too
+few children?"
+output: html_notebook
+---
+
+
+In this lab, we will use Japan to illustrate the changes in
+age-structure that are resulting from the demographic transition and
+continued population aging.
+
+Specifically, we will investigate:
+
+1. What has happened to the share of elderly and children from
+World War II until today.
+
+2. What will happen if current levels of fertility and mortality
+continue.
+
+and
+
+3. How to use stable age-structures and the Solow model to understand
+the effect of fertility on consumption in the macro-economy.
+
+> Note 1: This lab is somewhat longer than previous labs. Please plan
+> accordingly. There is relatively little code for you to write but
+> there is a substantial amount of material to cover.
+
+> Note 2: Please be warned of the varying notation for the
+> exponential growth rate of the stable population. Economists use "n"
+> and demographers use "r". We tend to mix this usage, in class and in this
+> lab.
+
+
+
+# Part 0. Preliminaries
+
+```{r}
+# Do not edit this chunk, but *do* press the green "play" button in the top right corner to load the answer key for the quiz info (the unreadable string below)
+tot = 0
+answer.key = "eJy9V01vGzcQvftXDIwWSgB3oS+n7aEHp26KFGkKOAaKHKndkZY1l9yQXMv693kzu5Il7VUo4I+llhzOvJl5b1R8812z4jgrZvQb4e9VUYYYucyF8Wm7f3F9f31V1NbnYflnCBvHNPnoy8gmcUXWV12J/2YVYrbBUzSZ8SnNfn337oaMJ5NamKWwvioM/WVa4zkxrYN7otS1HFO2crCY4CrrU45dKes0XPnArTMlU66ZPt/R1uaadqGL1PtJb7jYFDc0uZvIrd+6kDm9hSl+wTlvxNT/4Ty9eYSDnl+w2cNGovl0/u5tAU8OUM8V6vkYanlx/f4AtS4/2TUTgsA+48sdmUwrGxH8JnCidQyNuN1l+vmWchief7ml8AxQBKwSIMHXsKYFVVyaitMI4fnFEFZLChDVJtGKy9D0Jrchuoocw4FIqwDjsCIvHD+zE/+Aow3VVeHOQ/aVbmzFO+yzTRsRXsM+H8O6UFgXY1gXp7Dq8qPvMyp21xb5oxi2Ylw+aEyO9kVdCm3nNDQx2/mcCnqsA/A0G5TQdEIm4hnJCCifFn692Eb372313mnlaN7SDSXrSymvtfGZGpSccTbvpFaQsx05OAJoFMRRphYXy5Ra+sAoeL29zxZ7vT4F/PObgxu4aV93SSJWU6hvn61xbid15ay3OIFthtbGRnyaMpK902Y6ztNS87Qc50leXP9+yJMuP4escaCQTCewizkbqBSnzBPTs3EdGmGDVs5a8XgxK6YF4eRVMXl/dNTlOnSbWmHj9bpvaCRS/A59LX69f9By++cOD0hIiXqNN1eFZpLz4Vi/+7HfZJqV3XShG/fV8mLZ2oNRi7O4cxuRn4Lu8MQT5ygxI1Dk7hjpW0X6doy0vLi+OyDdL2nYhbwBSumuG1qBTCoQjZ/kvbsSxjdArnw3ivj2YhGrpccasboOAWJjxS37ioUSJDWoPO6JYXLPTdhE09a2pHv7bLGpmrwiMVfin4/VbX6qbsPy/U5o6lnLouspInXx2aLUiJ0igy7esvZ+XxEWFLYT675SIRhKajad/vh6dmCELRjRD6kjMYb9XAmQuLbMXWQ1Di75T7JhVEgSvxyR0Tnu84tp5GDpKyPCLODjpwYjNMajzQ3aB12Gkpco0GnbOihTR4u0SBCnEW9DB86vzfMRASz0hsU4Gf2LAwEMS8hp7JHupW02W9AONAWtkzCr4JyJ53gsLobHYOkPEyWnCRplnoTkEpLYN6OzYKEflrc30+lUJEx+U/DIIaqxxsbOVzjnwEF25U6AmCsQo0FgcToIDMtPIejNqukxpPSTSPw55ywupuV7SzZJlLwHoAxQLzRYb9Nxko986ppWVe+NRi0+la7DqEGM0UrtSfOgUnzCTcUxCgtFYaTbi1PdXux1ux8FDq0gy6FAKotejGioQXRTP1SEFtOegRiwQT6g2+NquZSqvjoZoow5KFIBx1YDb+YArZfOrvqrRWuUNfb4SdNxP10kCI7wWwCvgw+sdF5Fq915/DKIVBbRWJD1wA0HbJeK7Uhr+xdH2C7PKwwGGEobosoh+DQ01ut6YLGK11D81yBMeiKL2SwLY+g4BM+l88EVkMeNzECRUiOsHenLwygHl9LKwZIymEkAVspX5xcxKmgB/7VF5Uoox7WrcRwlJ3JjcEvnSwwVG66OkF0qLSzHJLY8JbFh+bfJZT1M4+DJNu9n3zK4rsGorFPxeS8vL8Zig6V/5UKM4zpmlk7GWHz1QZX1Qo/QV2aFwa0ftJKTmhNZe22s12k1lTVa23FBXw5UyC5xT8zWPw18LbNKrUV7VQTgjAKgxw8P+O7Ut8QHm6Dk9KVrW9imB53ucAhfCoALPGCw+3c6Ntuj"
+library(quizify)
+source.coded.txt(answer.key)
+```
+
+> Note: the most helpful readings for this lab is Lee (2003) for Parts
+> 1 and 2 and Lee et al (2014) for parts 3, 4, and 5.
+
+
+# Part 1. Population change over the demographic transition.
+
+The first declines in mortality and fertility happened gradually in
+Europe. More recently, the pace of demographic transition has
+sped up. An early example of rapid demographic change, for which we
+have excellent statistics, is Japan.
+
+Until shortly after World War II, Japanese fertility remained
+high. Mortality rates were improving, and the resulting population
+growth was very fast -- indeed, rapid population growth was one of
+the reasons that Japan gave for expanding its empire.
+
+After the War, fertility began to decline very rapidly.
+
+```{r}
+## get TFR data from a file on our server
+tfr.data <- read.table("/data/japan_tfr.txt")
+year.vec <- tfr.data$Year
+tfr.vec <- tfr.data$TFR
+plot(year.vec, tfr.vec, type = "o",
+     main = "Japanese Period Total Fertility Rate")
+```
+
+In less than a decade, fertility fell to replacement levels near two
+children per woman.
+
+Q1.1 What do you think happened in 1966?
+
+A. There was a mistake in the data collection. Records were lost, or a
+calculation error must have been made.
+
+B. The economy crashed
+
+C. 1966 was an inauspicious year according to the Japanese zodiac, the
+year of the "fire horse" in which it was unlucky to have a daughter
+born.
+
+D. Everything in C *and*  further evidence of intentionality
+is that births were slightly higher both before and after 1966.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.1 = NA
+quiz.check(answer1.1)
+```
+
+
+
+We can see that the pace of mortality improvement was steady the
+entire time.
+
+```{r}
+e0.data <- read.table("/data/japan_e0_female.txt")
+year.vec <- e0.data$Year
+e0.vec <- e0.data$Female
+plot(year.vec, e0.vec, type = "o",
+     main = "Japanese Period Life Expectancy at Birth, Female")
+```
+
+Life expectancy is greatly influenced by the level of child
+mortality. Right after WWII we see the enormous effects of reducing
+child mortality. Today, mortality improvement is still steady, but
+because the increases in survival are at older ages, the same pace of
+improvement in mortality rates adds fewer years of life expectancy at
+birth.
+
+
+Q1.2 What is the pace of life expectancy improvement from 1980 to
+2010?
+
+A. About 1 year per year.
+
+B. About 2-3 years per decade
+
+C. About 1 month per year
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.2 = NA
+quiz.check(answer1.2)
+```
+
+
+Now we are ready to explore the history of Japan's age-structure.
+
+```{r}
+## read in matrix of population counts
+tmp <- read.table("/data/japan_pop_matrix_1947_2015.txt")
+colnames(tmp) <- gsub("X", "", colnames(tmp))
+Nxt.mat <- as.matrix(tmp)
+# ages 0-110 are rows of the matrix, years 1947-2015 are on the columns
+dim(Nxt.mat)
+# births for each year are given in the row labeled "0"
+print(Nxt.mat["0",]) # or equivalently 'print(Nxt.mat[1,])'
+
+```
+Q1.3 What is happening to the number of births from 2014 to 2015?
+
+A. They are increasing as a residual effect of past population growth.
+
+B. They are declining at a rate of 1 or 2 percent a year
+
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.3 = NA
+quiz.check(answer1.3)
+```
+
+
+Let's now visualize the change in Japan's age structure. We start by
+viewing the change frame-by-frame:
+
+```{r}
+
+year.vec <- colnames(Nxt.mat)
+for (i in 1:length(year.vec))
+{
+    barplot(Nxt.mat[,i], horiz = T,
+            xlim = c(0, 2.5 * 10^6),
+            xlab = "Number of people N(x,t)", ylab = "Age x")
+    title(year.vec[i])
+##     Sys.sleep(1/10)
+}
+
+```
+
+Or we can compare a few snapshots every 20 years.
+
+```{r}
+my.year.vec <- c("1950", "1970", "1990", "2010")
+par(mfrow = c(1,4)) # this tells graphics window to display 1 row of 4 panels
+for (i in 1:length(my.year.vec))
+{
+    print(i)
+    this.year <- my.year.vec[i]
+    barplot(Nxt.mat[,this.year], horiz = T,
+            xlim = c(0, 2.5 * 10^6))
+    title(my.year.vec[i])
+}
+
+```
+
+
+If we look at the effects of fertility decline on the population
+age-structure, we can see a very young population in the 1950s,
+followed by a dramatic drop in the fraction of the young in the 1970s
+and 1980s. Since the 1980s, the smaller birth cohorts have entered the
+workforce, and the ratio of the elderly to workers has risen sharply.
+
+From the point of view of population age-structure, is Japan worse off
+today than it was right after WWII? From a well-being point of view,
+we care about the social and economic roles of people of different
+ages. Demographers use dependency ratios as summary statistics of the
+population age-distribution. We will use the following conventions,
+where we define the youth as being aged 0-19, the workers aged 20-64,
+and old-age'd as aged 65+.
+
+* Youth Dependency Ratio: $ YDR = N(0-19) / N(20-64)$
+* Old-age Dependency Ratio: $ OADR = N(65+) / N(20-64)$
+* Total Dependency Ratio: $ TDR = YDR + OADR$
+
+We will use R to loop through each year and create vectors for the
+numbers of youth, workers, and elderly by year.
+
+```{r}
+
+x <- 0:110                              # ages
+
+young.vec <- apply(Nxt.mat[x %in% 0:19,], 2, sum)
+worker.vec <- apply(Nxt.mat[x %in% 20:64,], 2, sum)
+old.vec <- apply(Nxt.mat[x %in% 65:110,], 2, sum)
+
+ydr.vec <- young.vec/worker.vec
+oadr.vec <- old.vec/worker.vec
+tdr.vec <- oadr.vec + ydr.vec
+plot(year.vec, tdr.vec)
+
+```
+
+Q1.4 Wait, is something wrong?
+
+A. Yes, the total dependency ratio can not be greater than 1.0 -- we made
+a mistake.
+
+B. Yes, the total dependency ratio even with the contemporary, very aged
+population, is lower than it was before fertility decline. We made a
+mistake.
+
+C. No. This could be right.
+
+
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.4 = NA
+quiz.check(answer1.4)
+```
+
+Let's now look at the three dependency ratios on the same graph:
+
+```{r}
+
+plot(year.vec, oadr.vec, ylim = c(0, 1.5),
+     type = "l", col = "red", lwd = 3,
+     ylab = "Dependents per worker")
+lines(year.vec, tdr.vec, col = "black", lwd = 3)
+lines(year.vec, ydr.vec, col = "blue", lwd = 3)
+text(1960, .6, "Youth \n Dep Ratio",
+     col = "blue")
+text(1970, 1, "Total \n Dep Ratio",
+     col = "black")
+text(1960, .25, "Old \n Dep Ratio",
+     col = "red")
+
+```
+
+Now we can see that the youth dependency ratio has fallen more than
+the old-age dependency ratio has risen. Total dependency has not yet
+reached it's post-war highs.
+
+Q1.5 Why did the youth dependency ratio fall sooner than the old-age
+dependency ratio rises?
+
+A. Because when births fall, there is a lag of a few decades between
+fewer babies and fewer workers.
+
+B. Because total dependency fell and then rose.
+
+C. Because mortality fell before fertility
+
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.5 = NA
+quiz.check(answer1.5)
+```
+
+
+
+# Part 2. Japan's Future?
+
+We now project Japan's population (using the 1-sex projection model we
+covered in lecture) to see how the history of low
+fertility will play out over time. We assume here that fertility will
+remain at current levels. This will tend to produce quite a bit of
+population aging, more so that would occur if, as many expect,
+fertility were to rebound somewhat. On the other hand, we also assume
+no continued increase in longevity -- which is almost surely
+unrealistic -- and thus our projection will have fewer survivors to
+old age than is likely.  (Note: we also assume zero net migration --
+which we do for simplicity, but which may be implausible.)
+
+We begin by importing the projection matrix that made from 2014
+rates found in the Human Fertility and Human Mortality Databases.
+
+```{r}
+## you can skip the details on how this is read in
+tmp <- read.table("/data/japan_projection_matrix_2014.txt")
+colnames(tmp) <- gsub("X", "", colnames(tmp))
+A.2014 <- as.matrix(tmp)
+## but do let's look at the first row
+print("Fertility rates: row 1 of the projection matrix")
+print("(look for non-zero values at ages where women tend give birth)")
+print(round(A.2014[1,],3))                       # [1,] indexes first row
+```
+
+And let's print some elements showing survivors
+```{r}
+print(A.2014[1:6, 1:6]) # the upper, left corner
+print(A.2014[90:96, 90:96]) # towards the lower, right corner
+```
+
+To see the whole matrix is a bit difficult since it is so large. You
+can scroll. But you can also do a 3-d picture.
+
+```{r}
+persp(x = 0:110,
+      y = 0:110,
+      z = t(A.2014),                    # transpose for cleaner view
+      phi = 35,                         # viewing angle
+      xlab = "Age ('in')",
+      ylab = "Age ('out')",
+      col = "pink",
+      expand = .2,
+      zlab = "Transition rate")
+```
+
+Here, the "fin" along the diagonal is survivorship and the very little
+ridge in front is the first row for reproduction.
+
+
+
+Q2.1 The sum of the first row elements should be closest to
+
+A. Life expectancy
+
+B. The total fertility rate, the average number of children a woman
+would have if she survived through childbearing.
+
+C. The net reproduction rate, the average number of newborn girl would
+have would have, accounting for her probability of dying before she
+completes childbearing.
+
+D. The average number of daughters the average woman would have if she
+survived through childbearing.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.1 = NA
+quiz.check(answer2.1)
+```
+
+
+## Projection
+
+Here is some code to project the 2014 population up to 2017.
+
+
+```{r}
+## create a new matrix to store the past and future population in by age
+x <- 0:110
+year.vec.new <- 1947:2100
+Nxt.mat.new <- matrix(NA,
+                      nrow = length(x),
+                      ncol = length(year.vec.new))
+dimnames(Nxt.mat.new) <- list(x, year.vec.new)
+Nxt.mat.new[, year.vec.new %in% year.vec] <- Nxt.mat
+
+## check to see how full it is
+image(y = x,
+      x = year.vec.new,
+      z = t(Nxt.mat.new))
+## another view (you can play with phi and theta values to change angle)
+persp(y = x,
+      x = year.vec.new,
+      z = t(Nxt.mat.new),
+      zlab = "Population N(x,t)",
+      xlab = "Time t",
+      ylab = "Age x",
+      phi = 70, theta = -25)
+```
+
+Now we project up to 2017.
+
+```{r}
+future.year.vec <- 2015:2017
+for (i in 1:length(future.year.vec))
+{
+    ## The Nxt matrix is indexed by columns with years as characters
+    ## so we to refer to N[,"2017"], not N[,2017] (which would be the
+    ## 2017th column)
+    ## To make this work, we first manipulate the years as numbers and
+    ## then convert them to characters before using them as indices.
+    to.year = future.year.vec[i]
+    from.year = to.year - 1
+    to.string <- as.character(to.year)
+    from.string <- as.character(from.year)
+    ## Now we can do our projection
+    print(to.string)
+    Nxt.mat.new[,to.string] <- A.2014 %*% Nxt.mat.new[,from.string]
+}
+```
+
+And we can view the results in several ways.
+
+```{r}
+image(y = x,
+      x = year.vec.new,
+      z = t(Nxt.mat.new))
+abline(v = 2014, col = "black", lwd = 1, lty = 2)
+
+persp(y = x,
+      x = year.vec.new,
+      z = t(Nxt.mat.new),
+      phi = 60, theta = -20)
+```
+
+
+### Analysis of Projection (your turn)
+
+For this section, you should create new r-code chunks.
+
+1. Project the population using the same "2014" projection matrix from
+   2017 to 2100. (You can do this by copying the code above and making
+   some small modifications.)
+
+2. Make a plot of the youth, old-age, and total dependency ratios from
+   1947 to 2100. (You can do this by copying the code we used for
+   calculating and graphing the initial population Nxt.mat).
+
+
+Graded Question 1.
+
+1.1 Submit a copy of your graph of the dependency ratios from 1947 to 2100. You can put your name on it by using the command
+
+> text(x = 2050, y = 1, "Alfred E. Newman")
+
+1.2 What could be the possible reason that workers might have a harder time supporting the dependents in 2100 than in 1947? Answer in 1 or 2 sentences.
+
+1.3 What could be the possible reason that workers might have an easier time supporting the dependents in 2100 than in 1947? Answer in 1 or 2 sentences.
+
+
+# Part 3. Adding detail with refined age-schedules
+
+Do kids really "cost" the same as the elderly? Does a 20 year old
+produce as as much as a 50 year old? Does a 90 year old need more care
+than a 70 year old?
+
+Survey data enables age-specific estimates of consumption and
+production by age. The methodology for creating these estimates is
+somewhat complex, but the findings are quite robust. Here we take
+advantage of the schedules that were used by Ron Lee et al. (http://science.sciencemag.org/content/sci/suppl/2014/10/08/346.6206.229.DC1/Lee.SM.pdf) in
+order to examine at a finer scale the effects of age structure on the
+economy.
+
+Let's look at the estimates of production and consumption by single years
+of age in Japan.
+
+```{r}
+df <- read.table("/data/japan_nta_schedules.txt")
+x <- 0:110
+cx <- df$cx                             # consumption by age
+yx <- df$yx                             # production by age
+## (techical note 1: this "yx" is actually labor income).
+## (technical note 2: we don't have data over age 90, so we extrapolated)
+yx[x > 90] <- 0
+cx[x > 90] <- 0
+
+million = 10^6
+plot(x, cx,
+     type = "l", col = "red",
+     ylim = c(0, 5 * million),
+     ylab = "cx, yx",
+     xlab = "age x",
+     main = "Consumption and production, \n Japan c. 2010")
+lines(x, yx, type = "l", col = "blue")
+```
+
+Note: the decline to zero at age 90 and beyond is because there is
+missing data. (We discuss the effect of this missing data in
+Question 5 at the end of the lab, but for now we will assume the true
+values are zero.)
+
+Q3.1 What are plausible units for the y-axis
+
+A. Annual dollars per person by  year of age
+
+B. Life-time dollars per person up to that age
+
+C. Annual yen per person by year of age
+
+D. Life-time yen per person up to that age
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.1 = NA
+quiz.check(answer3.1)
+```
+
+
+Q3.2 At what age do Japanese first produce as much as they consume?
+
+A. About age 45
+
+B. About age 25
+
+C. About age 20
+
+D. About age 60
+
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.2 = NA
+quiz.check(answer3.2)
+```
+
+Q3.3 True or False. The schedules imply that the Japanese population
+consumes much more than they produce, since the area below the red
+line is much larger than the area below the blue line.
+
+A. True.
+
+B. False.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.3 = NA
+quiz.check(answer3.3)
+```
+
+
+### Support Ratios
+
+We can apply these more refined age-schedules of economic activity to
+the Japanese population that we have already observed and forecast
+from 1947 to 2100.
+
+The support ratio in year $t$ is defined as
+$$
+SR(t) = { \sum_x N(x,t) y(x,t) \over \sum_x N(x,t) c(x,t)},
+$$
+
+where
+* $N(x,t)$ is the number of people aged $x$ in year $t$,
+* $y(x,t)$ is the production per person aged $x$ in year $t$,
+and
+* $c(x,t)$ is the consumption per person aged $x$ in year $t$.
+
+In what follows, we assume that $y(x,t)$ and $c(x,t)$ remain constant
+at the levels observed in about 2010.
+
+Note that the Support Ratio is the reciprocal of the elderly dependency ratio.
+
+We now calculate the support ratio over the entire period,
+1947-2100. (Just make sure that you have done your projection already,
+so that your "Nxt.mat.new" is already filled in completely.)
+
+```{r}
+SR.vec <- NULL
+for (i in 1:length(year.vec.new))
+{
+    total.production.of.population <- sum(yx * Nxt.mat.new[,i], na.rm = T)
+    total.consumption.of.population <- sum(cx * Nxt.mat.new[,i], na.rm = T)
+    SR.vec[i] <- total.production.of.population/
+        total.consumption.of.population
+}
+plot(year.vec.new, SR.vec)
+```
+
+Q3.4 Taking into account the detailed profiles of consumption and
+production by age, what does Support Ratio show about dependency in
+2100 compared to 1947?
+
+A. The Support Ratio is lower in 2100 than in 1947, so this means less
+dependency.
+
+B. The SR is lower in 2100 than in 1947, so this means there are fewer
+producers per equivalent-unit consumer, effectively *increasing*
+dependency.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.4 = NA
+quiz.check(answer3.4)
+```
+
+
+# Part 4. Optimum fertility (using stable populations)
+
+In this final section of the lab, we try to reproduce some of the
+results on optimal fertility in the Lee et al. reading.
+
+We follow Lee et al in optimizing the "support ratio",
+but this time with stable population age structures
+
+$$
+SR = { \sum_x n_r(x) y(x) \over \sum_x n_r(x) c(x)},
+$$
+
+where $n_r(x)$ is proportion of people aged $x$ in the stable
+population with exponential growth rate $r$, $y(x)$ is the
+production per person aged $x$ observed in 2010, and $c(x)$ is the
+consumption per person aged $x$ observed in 2010.
+
+In a stable population, we derived in class the result that
+$$
+n_r(x) = b e^{-rx} \ell(x),
+$$
+where $n_r(x)$ is the proportion of people aged $x$ in a stable
+population with exponential growth rate $r$.
+
+Substituting, the stable age formula gives us
+$$
+SR(r) = { \sum_x e^{-rx} \ell(x) y(x) \over \sum_x e^{-rx} \ell(x) c(x)},
+$$
+
+We can now use this formula to study how the support ratio will vary
+with the growth rate of the population and with fertility.
+
+Let's begin by specifying a vector with growth rates corresponding to
+different total fertility rates.
+
+```{r}
+## let TFR range from 1 to 3, in 1/10 of a child increments
+tfr.vec <- seq(from = 1, to = 3, by = .1)
+## calculate implied pop growth rate "r"
+r.vec <- log(tfr.vec / 2.05) / 30
+## Here, we divide number of children of both sexes by 2.05 to get the
+## number of daughters (since about 105 boys are born per 100
+## girls). The generation length is assumed to be 30 years.
+plot(tfr.vec, r.vec)
+```
+
+Now let's calculate the support ratio $SR(r)$ for each value of
+exponential growth.
+
+First we need a survival curve. For this we use the subdiagonal of
+the projection matrix, which is close enough for our purposes.
+```{r}
+## (no need to understand this)
+surv.subdiagonal.of.projection.matrix <- diag(A.2014[-1, -ncol(A.2014)])
+Lx <- cumprod(c(1, surv.subdiagonal.of.projection.matrix))
+## check to make sure it gives reasonable life expectancy
+e0.check <- sum(Lx)
+print(e0.check)
+```
+
+
+```{r}
+SR.vec <- NULL
+for (i in 1:length(r.vec))
+{
+    r <- r.vec[i]
+    nx.r <- exp(-r * x) * Lx
+    total.production.of.population <- sum(yx * nx.r)
+    total.consumption.of.population <- sum(cx * nx.r)
+    SR.vec[i] <- total.production.of.population/
+        total.consumption.of.population
+}
+## let's plot as a function of "r"
+plot(r.vec, SR.vec, axes = T)
+## and again as a function of tfr
+plot(tfr.vec, SR.vec, axes = T)
+## now we can add a line at the maximum by eyeballing and guessing the
+## value
+abline(v = 2.6)
+## or more exactly
+opt.tfr <- tfr.vec[which.max(SR.vec)]
+abline(v = opt.tfr, col = "red")
+print(opt.tfr)
+```
+
+We see here that the "optimal" fertility rate is greater than 2.
+
+
+Q4.1 This value corresponds to which value of table 2 on page 232 of in Lee et al.
+
+A. 1.34
+
+B. 2.70
+
+C. 2.33
+
+D. 1.88
+
+E. 1.57
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer4.1 = NA
+quiz.check(answer4.1)
+```
+
+The other thing to note is the Support Ratio with optimal fertility
+rate is not that much higher than that obtained with plus or minus half a
+child or so. The curve $SR(r)$ has a very flat peak. This is because
+when comparing across stable populations, the increase in the elderly
+population, which is a result of slower overall population growth,
+is largely offset by decreases in the youth population.
+
+
+# Part 5. Another Capital Idea
+
+To finish up, let's combine the fertility on population age
+structure, with the effects of fertility on the population growth rate
+and capital accumulation. We can use the Solow model once
+again to gain some insights into both the qualitative and the
+quantitative effects of population growth rates.
+
+There are possible many ways to do this. (Those interested in the
+details can consult the "supplementary materials" of the Lee et al
+paper in Science).  For the lab, we will reproduce the "low cost capital
+approach," which assumes that the capital-output ratio stays constant
+over time. (This is what we already saw Piketty building upon.)
+
+In the Solow model, we saw that if one wants to preserve a constant
+stock of capital per person, faster population growth rates need to be
+matched with larger fractions of income saved.
+
+In the steady state, we have savings per person equaling the new
+capital needed to keep up with population growth $n$, depreciation
+$d$, and technological advances $\lambda$,
+$$
+s y = (n + d + \lambda) k
+$$
+
+We can rearrange this steady-state to give us.
+
+$$
+s = (n + d + \lambda) (k / y)
+$$
+
+Lee et al.  assume standard values such that $k/y \approx 3.0$, 
+$d= 0.05$, and $\lambda = .02$. This allows calculation of $s$ 
+as a function only of $n$.
+
+```{r}
+d = .05
+lambda = .02
+ky.ratio = 3.0
+s.vec = (r.vec + d + lambda) * ky.ratio
+plot(r.vec, s.vec)
+```
+
+To take account of the effect of increased savings on the support
+ratio, we reduce the effective production of workers by a factor of
+$(1-s)$. This operationalizes the idea that the more saving is
+required, the less production is available for consumption.
+
+$$
+SR_{capital} = { \sum_x (1- s_r) e^{-rx} \ell(x) y(x) \over \sum_x e^{-rx} \ell(x) c(x)},
+$$
+
+where we use the savings rate $s_r$ that corresponds to the
+population growth rate $r$.
+
+```{r}
+
+## This is  the "low capital" case, where the capital-income ratio is
+## fixed at 3.0. This is would happen if we had Cobb-Douglas.
+
+## In this case, the a share "s" needs to be set aside from income as
+## savings, and cannot be consumed. So we exclude this share from the
+## numerator of the support ratio.
+
+SR.low.capital.vec <- NULL
+
+## let's get the savings rate for each growth rate
+s.vec <- (r.vec + d + lambda) * ky.ratio
+plot(tfr.vec, r.vec)
+for (i in 1:length(r.vec))
+{
+    r <- r.vec[i]
+    my.Nx <- Lx * exp(-r * x)
+    s <- s.vec[i]
+    SR.low.capital.vec[i] <-  sum((1- s) * my.Nx * yx) / sum(my.Nx * cx)
+}
+plot(tfr.vec, SR.low.capital.vec)
+opt.tfr.low.capital <- tfr.vec[which.max(SR.low.capital.vec)]
+print(opt.tfr.low.capital)
+abline(v = opt.tfr.low.capital, col = "red")
+```
+
+
+# Graded Questions
+
+> 1. See line 442 above.
+
+> 2. Japan witnessed an incredible economic boom in the latter half of
+>    the 20th century. In theory, which stage of the demographic
+>    transition would make the demographic dividend possible?  Please
+>    explain in no more than 3 sentences, supported by two graphs
+>    illustrating the idealized demographic transition, one showing
+>    the change in vital rates and the other showing the change in
+>    old-age-, youth-, and total-  dependency ratios.
+
+> 3. If a population sees a large fertility decline in year "0" and
+>    the fertility remains low from then on…
+
+> 3.1 Approximately in how many years later would the total
+>     dependency ratio reach the first minimum?
+>     Please give an estimated number and explain in 1 sentence.
+
+> 3.2 What would happen to the TDR after this first minimum?
+
+> A. It will stay at this low level from now on because fertility remains low.
+> B. It will stay low until the larger cohorts ahead of the small
+>    cohorts all begin to retire and the elderly population starts to
+>    become larger relative to the working age population.
+> C. It will stay low until the small cohorts all begin to retire.
+> D. It will stay low until the generation of the small cohorts
+>    enters the workforce.
+
+
+> 4. We compared the effect of a very young age-structure in 1947 with
+>    the very old age structure in 2100 using the Total Dependency
+>    Ratio and the Support Ratio. The SR calculation suggested that
+>    indeed the aged population in 2100 would be a greater economic
+>    burden than the young population in 1947. But the TDR calculation
+>    did not. What feature of the consumption profile do you think is
+>    responsible for this result? Explain in no more than 3 sentences.
+
+> 5. Our data for Japanese consumption and production ends at age 90
+>    (and here we assumed both were zero after this age). If we extended
+>    both schedules observed at age 90 out to age 110 ...  (Hint: look at
+>    your graph of the age schedules)
+
+> 5.1  How will the SR change? Why? Explain in 1 sentence.
+
+> 5.2  Would optimal fertility be higher or lower?
+
+
+> 6. The Solow Model gives us a useful perspective to examine the
+>    effect of fertility change upon macro economy. Based on our
+>    analysis in this lab, consider the following statements that
+>    included capital into the fertility model. State whether they are
+>    TRUE or FALSE, and explain in 1 sentence.
+
+> A. If robotization were able to make the economy even more capital
+>    intensive, increasing the capital-income ratio from 3.0
+>    to 5.0, the optimal fertility rate would be higher.
+
+> B. In an economy that includes capital in the model, the government
+>    would advocate for policies that encourage fertility.
+
+> C. For countries with higher income, the fertility level that
+>    optimizes consumption under the high-capital-cost scenario would
+>    be above replacement level.
+
+Congratulations! You are finished with Lab 6.
