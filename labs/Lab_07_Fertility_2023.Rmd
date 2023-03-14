@@ -1,0 +1,606 @@
+---
+title: "Econ/Demog C175 Lab 7: Micro-economic Models of
+Fertility and an Investigation of Historical Switzerland"
+output: html_notebook
+---
+
+
+In this lab, we first go further into the cost-of-time model of
+fertility, answering questions based on theory and experimentation
+with the cost_of_time "app". Then, we look at fertility and
+socio-economic data from historical cross-section provinces in
+French-speaking Switzerland, trying to see how our models may or may
+not be consistent with historical experience.
+
+> Note: The first part of the lab includes some mathematical
+> derivations that we did not fully cover in class. You should
+> understand what analysis is done (and why), but you don't need to be
+> able to derive this yourself. To display the equations you may need
+> to click on them or below them in the R Notebook.
+
+> Further note: The graded questions are interspersed throughout the
+> lab. They should be numbered consecutively.
+
+> Final note: The computing with data part of the lab is short this
+> time and should take less time than the first parts on the
+> cost_of_time.
+
+
+# Part 0. Preliminaries
+
+The data to be used in the lab is a built-in R dataset so we don't 
+need to download it.
+
+
+```{r}
+# Do not edit this chunk, but *do* press the green "play" button in the top right corner to load the answer key for the quiz (the unreadable string below)
+tot = 0
+answer.key = "eJytVU1v2zAMvedXELukAzoDjZMeNgxFtgFDLztsxYAdFZuJhcqSq4+k/vcjGc2t513WGgiS0Kae9B7Jp+LBpnaH/qq4go9A34uict5jFQtlw+nPizef3iyKRtuYw224h+BadBZh7zw0aDrQe+hdgkrZZYRah86oHmKD57edOkjuouBH4aRDgFpFFTAWcBshNC6ZGlTXofKQgrYHWbzk1ReS/3YJlasRqibZ+0Vx0Ee0oHbuiAUdT9sQfaqidjbkY35HOkOFgvNtCycdGz6ihzM3uMDiUFzCcrsEbeEhuYjhLUHhI62ziqEy0m1cBoHp0FdoI7g9tMpgoIVHZ45YM4I6eF0lE5NHUAFcVaVOUPh8g9IrUXo1VXol0g5KS/jFq31E2kcxpjGy64Ttaja2gnTnE17CLkVo9KGhpbwpYJ0qyQIdoPNup3amJ57BVVpFrBeFbJmX7PGvRe/eUcuAjqPV1lFssxAQHXeHtvcsL/0JrKLi7Mde+oypPSFS0s7Rjh1pYyNl2pqeka6NNjU9GhICPmIY1aCUGpTTGpTjGkj4g3L6SzorVAaPxI3fTVuunK0IgvQLwyWRr1zbEldWzGALWeIQHbWaMgSrTB/0mN1a2K2n7NbjWV6fi93zkKl6GLLowDh3DyoKDZ7SD0Dqe0oaD/RUhPVsIqzHncidQoWOPGDKU+votnM+qnMlBuobob6ZUt+MqUt4R+d7SBj+NPUO2XWowj0YHdEr8x6Wp4Z0yGO/vJkQ3sxGWJC2JL24y9DEtT6bC2FrGivtQ4SePZIGijueOtIuitaRP+xwzz+UScabvKWF7LqbkULXotD1VKHrcetL+LOAQBrXQcbvJxkQ9tOiX8+mgSB9RYtHxQVRhiyj8xhSK3bB2K0L7Bl1ohNoOlAPNUlgXIf1M56l+HY5vdDKfINlnjn8TDzIuM8H7rgELC1vt9eRvI36wU66vZztlslId2x59KkInEac7xlBYzDKJhKSHZ4uvYHtSthOLpVyfKnk8IVs57plMtJtOHv832z7f9O9eU63FLoT/z6/GMY8hy+kO5efZ6TX0F0L3Ymhl2NDz+EL6c7l3BnpNXQ3Qndi4mW2yIHu5hV05/LtjPTfdH8DxdbEMg=="
+library(quizify)
+source.coded.txt(answer.key)
+```
+
+# Part 1. Implications of the Cost-of-Time Model of Fertility Choice
+
+
+
+The Cost_of_time app computes the optimal bundle (N, X) of N children
+and X-dollars worth of consumer goods. The app plots two choices, one
+based on the initial values of $(w, p, c, and I)$ and one for separate
+values $(w', p', c', and I')$. The app is available at
+
+```{r}
+browseURL("http://shiny.demog.berkeley.edu/josh/")
+```
+under cost_of_time. 
+We recommend resizing the window of the app and playing with the font
+size (cmd-shift+, cmd-shift- on a mac) until the graph is fairly
+square.
+
+You can see the effect of changing any single value by changing any
+one of the "Parameters to perturb."
+
+You can see how the effect of these changes (e.g., increasing wages)
+depends on the values of the other parameters by first changing the
+initial parameter values, and then changing one of the "Parameters to
+perturb".
+
+
+## Background to the Model
+
+We imagine potential parents choosing between the number of children
+they want to have and the amount of "other goods" they want to
+consume.
+
+### Prices
+
+For simplicity, we let there just be one kind of "other goods", which
+we denote $X$. And we let the price be 1 dollar per unit of $X$.
+
+
+The price of children has two components:
+
+1. A fixed dollar expenditure per child $p$ for food, clothing, shelter,
+schooling, toys, etc.
+
+2. A time cost of $c$ hours per child. This dollar value of the time
+cost depends on the parents wage.
+
+### Income and the Budget Constraint
+
+Parents face a budget constraint. Their household income consists of
+'outside income' $I$ and wage income $w L = w (T - c N)$.
+
+1. 'Outside income' $I$ includes sources like interest on assets,
+   inheritance, as well as the wage-earnings of someone who cannot
+   spend their time with children.
+
+2. Wage income is the hourly wage rate $w$ times the number of hours
+   worked $L$. The number of hours worked is equal to the total time
+   available for work $T$, minus the hours spent taking care of
+   children. (In our simple model, there is no leisure.)
+
+If we assume we are studying a heteronormative nuclear family with a 
+1950's-style division of labor, such that men never take care of 
+children and women divide their time between child-care and market work,
+then one could think of $I$ as "men's earnings" and $w (T- c N)$ as 
+"women's earnings."
+
+The family's expenditures must satisfy the budget constraint
+$$
+\mbox{Income} = \mbox{Consumption}.
+$$
+In our model, this means
+$$
+I + w (T- c N) = X + p N.
+$$
+We can re-arrange as
+$$
+I + w T = X + (p + c w) N,
+$$
+where the left-hand side is now "Full Income" and the right hand side
+gives the consumption including the time-cost of children. The full
+cost per child is thus $p + c w$.
+
+### Utility
+
+The choice of how many children and how much "other goods" is made so
+as to make the parents as happy as possible. We can use the same
+Cobb-Douglas formulation that we used for production functions earlier
+in the semester as a convenient model for utility. We let the utility
+of a particular choice of $X$ and $N$ be
+$$
+U(X,N) = X^a N^{1-a},
+$$
+where $0 < a < 1$.
+
+### The Optimal 'Bundle' of Goods
+
+Parents will choose $X$ and $N$ to maximize $U$, subject to their
+budget constraint. There are many methods for solving this constrained
+optimization problem, including:
+
+* Numerical search. (We try all combinations of X and N that satisfy
+  the budget constraint). This is what we did in class.
+
+* Substitution. We rewrite our budget constraint so that we express
+  one variable in terms of another. Then we substitute this expression
+  into the utility function and maximize utility of this single
+  variable function. (We will do this below.)
+
+* Lagrange multipliers. This is a general method for constrained
+  optimization. Good to know, but beyond the mathematics we're using
+  in this course.
+
+### Solving for the Optimum by Substitution
+
+The purpose of showing the derivation is to give you a sense of how
+this is done. You don't need to be able to do this yourselves.
+
+1. Express $X$ in terms of $N$.
+
+From the budget constraint,
+$$
+I + w T = X + (p + c w) N,
+$$
+we can write
+$$
+X = (I + w T) - (p + cw) N
+$$
+
+2. Substitute into $U$
+
+$$
+U(X,N) = X^a N^{1-a},
+$$
+$$
+U(X,N) = U(N) =  \left[ (I + wT) - (p + cw) N \right]^a N^{1-a}
+$$
+
+3. Maximization (the rate of change at the optimum should be zero)
+
+At the maximum, $U'(N) = 0$. But it is a bit easier to work with
+$\log U$, which will reach a maximum at the same value of $N$.
+
+$$
+\log U(N) = a\log{ \left[(I + wT) - (p + cw) N \right]} + (1-a)\log N
+$$
+
+$$
+{d\log U(N) \over d N} = {-a (p + cw) \over
+\left[(I + wT) - (p + cw) N \right]} + {(1-a) \over N}
+$$
+
+When ${d\log U(N) \over d N} = 0$,
+$$
+{(1-a) \over N} = {a (p + cw) \over
+\left[(I + wT) - (p + cw) N \right]}
+$$
+
+4. Solving for the optimal values
+
+Solving for $N$ gives us
+$$
+N^* = (1 - a) {I + w T \over p + cw}.
+$$
+
+We obtain $X^*$, by substituting $N^*$ into our earlier expression.
+$$
+X^* = (I + w T) - (p + cw) N^* = (I + w T) - (1-a)(I + w T) = a (I + w T).
+$$
+(Because of the properties of the Cobb-Douglas utility function, the
+amount of $X$ chosen depends only on full income and is independent of
+the price of children.)
+
+### Analysis of the solution
+
+With our solution
+$$
+N^* = (1 - a) {I + w T \over p + cw}
+$$
+in hand, we can now ask what effect changes in any of the parameters
+will have on the choice of $N$.
+
+For example, increasing $a$ will clearly reduce $N^*$. We can write
+$$
+{\partial N \over \partial a} < 0
+$$
+
+(The symbol $\partial$ indicates a partial derivative, differentiating
+only with respect to one variable.)
+
+Likewise, we can see that
+$$
+{\partial N \over \partial I} > 0
+$$
+
+And since $p$ and $c$ are both in the denominator,
+$$
+{\partial N \over \partial c} < 0
+$$
+and
+$$
+{\partial N \over \partial p} < 0
+$$.
+
+The only effect that is ambiguous in sign is
+$$
+{\partial N \over \partial w} \lessgtr 0
+$$.
+
+Some additional mathematical manipulation shows that
+
+$$
+{\partial N \over \partial w} <  0, \mbox{ when } {T\over c} < {I \over p}.
+$$.
+
+So, while in class, we questioned the usefulness of the cost-of-time
+model in making predictions about the effect of a wage increase on
+fertility, we see here that the model makes clear predictions about
+the other variables. Increases in outside income $I$ unambiguously
+increase fertility. Increases in the price of children through $c$ or
+$p$ unambiguously reduce fertility. And changes in taste, by changing
+the relative preferences $a$ for children vs. goods, are also
+unambiguous in their effect.
+
+For the purposes of this class, you do not need to be able to follow
+every step in the mathematical derivation. What is important to
+understand is that it is possible to analyze this model and discover
+in a quite general way what predictions the model makes and what the
+limits of the model are. The tractability of the model is what makes
+it so useful for enhancing our understanding.
+
+
+## Graded Questions on the Cost-of-Time Model of Fertility Choice
+
+For the following questions, we will leave the initial values of $w$, $p$,
+$c$, and $I$ unchanged. (Tip: you can always refresh your browser to return
+the app to its starting state.)
+
+
+> 1. Effect of a wage increase, changing $w'$ from $15 to $35:
+
+> If we increase the hourly wage $w'$ from $15 to $35, what happens to
+> fertility? [1 sentence with actual values.]
+
+> What happens to utility (the values of the indifference contours)?
+> [1 sentence with actual values.]
+
+> What happens to consumption of goods? [1 sentence with actual values.]
+
+> 2. If we increase outside income $I'$ from 1000 dollars per week to
+>    2,000 dollars per week, what happens to fertility?
+>    [1 sentence with actual values.]
+
+> 3. If we reduce fixed costs $p'$ from $100 per week to $50 per week, what
+>    happens to fertility? [1 sentence with actual values.]
+
+> 4. If we increase the time costs per child $c'$ from 10 to 20 hours per
+>    week, what happens to fertility [1 sentence with actual values.]
+
+> 5. For which of the above does the direction of the effect
+>    depends on initial parameter values, and for which do you think the
+>    direction of the effect is unambiguous? (Hint: you can verify the
+>    analytical answers given in the previous section by
+>    experimentation.) [A sentence for each parameter.]
+
+> 6. Now change the initial parameter value of $c$ from 10 hours per
+>    child to 2 hours per child before increasing wages from $15 per
+>    hour to $30 per hour.
+
+>   What is the effect of a wage increase on fertility now?
+>   [1 sentence with actual values.]
+
+>   Describe the relative size of the income and substitution effects
+>   that must be true for this effect to hold. [1 sentence saying which
+>   effect must dominate, no numbers needed.]
+
+> 7. Review of concepts. For each of the following scenarios, specify
+>   how you could operationalize the scenario by changing a parameter,
+>   and what effect the change in the parameter would be expected to
+>   have on fertility. (For example, if the scenario was a cut in the
+>   inheritance tax, you could say that on average this would increase
+>   non-wage income I, and that the effect of increasing I would be
+>   unambiguously to increase fertility.)
+
+> A. The government reduces the costs of elementary schooling (e.g. by
+>    getting rid of school fees). What parameter would you change, and
+>    what effect would this have on fertility?
+
+
+> B. Male income falls, but we live in a society in which only women
+>    take care of children. What parameter would you change, and what
+>    effect would this have on fertility?
+
+
+> C. Men becoming more involved in child care. One way of
+>    operationalizing is to increase $T$, the time that could be spent
+>    working or taking care of children. What other parameter would one
+>    want to change? How could these changes be made in a way that had
+>    no effect on fertility?
+
+> D. Infant mortality falls. If we conceptualize the costs per child as
+>    costs per surviving child, then this effectively lowers the costs of
+>    children. What parameters would you change, and what effect would
+>    these changes have on fertility?
+
+
+# Part 2. Fertility Decline in Switzerland
+
+In this homework, we take advantage of the wonderful coincidence that
+R has a built in data set from the literature on the historical
+demographic transition. The dataset has fertility, mortality, and a
+number of economic and social indicators for 47 French-speaking
+provinces of Switzerland in the years around 1888.
+
+The goal of this homework is to see empirically what the determinants
+of lower fertility appear to be -- and to see which of our economic
+theories seem to be applicable in this case.
+
+
+## 2.1 Understanding the variables
+
+Read results of help(swiss) and answer the following T/F questions
+```{r}
+help(swiss)
+
+
+```
+
+The fertility measure goes from 0 to 100, with 100 being an estimate
+of the biological maximum fertility (under normal conditions). If
+you're interested in the details, see
+(http://opr.princeton.edu/archive/pefp/indices.aspx).
+
+
+Q1.1 Agriculture is the percentage of land area dedicated to farming.
+A. True
+B. False
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.1 = NA
+quiz.check(answer1.1)
+```
+
+
+Q1.2 Education and examination are measured only for men
+A. True
+B. False
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.2 = NA
+quiz.check(answer1.2)
+```
+
+Q1.3 No measure of income is available
+A. True
+B. False
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.3 = NA
+quiz.check(answer1.3)
+```
+
+
+Q1.4 "Catholic" is the fraction, not percentage, of people who are
+Catholic.
+A. True
+B. False
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.4 = NA
+quiz.check(answer1.4)
+```
+
+
+
+Q1.5 What percent of children die before the age of 1 in Moutier?
+```{r}
+swiss["Moutier","Infant.Mortality"]
+```
+A. 0.203
+B. 20.3
+C. 2.03
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.5 =  NA
+quiz.check(answer1.5)
+```
+
+
+
+Q1.6 What is the district with the highest examination scores?
+```{r}
+swiss[which.max(swiss$Examination),]
+```
+A. The Valley of Geneva
+B. Bern
+C. Some very rural place
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.6 = NA
+quiz.check(answer1.6)
+```
+
+
+
+# 2. Theoretical Expectations
+
+Before analyzing the Swiss data, the first questions ask you to
+write down what you expect the relationship between fertility and the
+other variables. Use the cost-of-time model, Becker's quantity-quality
+model, or your own independent reasoning to provide the reasons for
+your prediction.
+
+
+Here is a model answer to show the format to use for the
+other parts.
+
+Infant mortality
+
+(Prediction: Higher infant mortality would be associated with higher
+fertility. My reasoning is that it would discourage investments in
+child quality by making the price of quality per surviving child
+high. So parents would have many, "low" investment children, rather
+than few, "high" investment children.)
+
+
+
+## Graded Questions on Expected Effects in Switzerland
+
+Write down what you expect the relationship to be between fertility and
+each of the variables below. Use the cost-of-time model, Becker's 
+quantity-quality model, or your own independent reasoning to provide the
+reasons for your prediction.
+
+> 8. Catholic
+
+
+> 9. Education
+> (Hint: distinguish between the effects of parents being more
+> educated, and parents providing more education for their children).
+
+
+> 10. Examination
+
+
+> 11. Agriculture
+
+
+
+# 3. Analysis
+
+
+What is the observed relationship between mortality and fertility?
+
+
+Plot it, using fertility as the outcome on the Y-axis
+```{r}
+plot(Fertility ~ Infant.Mortality, data = swiss)
+abline(lm(Fertility ~ Infant.Mortality, data = swiss), lty = 2)
+```
+
+
+Q3.1 Higher infant mortality is associated with
+
+A. Higher fertility
+B. Lower fertility
+C. No clear pattern in fertility
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.1 = NA
+quiz.check(answer3.1)
+```
+
+
+2. What is the relationship between "Agriculture" and fertility?
+
+```{r}
+## Cut and paste and adapt the code for Infant.Mortality above
+```
+
+Q3.2 Higher proportions working in agriculture are associated with
+
+A. Higher fertility
+B. Lower fertility
+C. No clear pattern in fertility
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.2 = NA
+quiz.check(answer3.2)
+```
+
+
+3. What is the relationship between "Examination" and fertility?
+
+```{r}
+## Cut and paste and adapt the code for Infant.Mortality above
+```
+
+Q3.3 Higher examination scores are associated with
+
+A. Higher fertility
+B. Lower fertility
+C. No clear pattern in fertility
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.3 = NA
+quiz.check(answer3.3)
+```
+
+
+4. What is the relationship between "Education" and fertility?
+
+```{r}
+## Cut and paste and adapt the code above for Infant.Mortality above
+```
+
+Q3.4 More education is associated with
+
+A. Higher fertility
+B. Lower fertility
+C. No clear pattern in fertility
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.4 = NA
+quiz.check(answer3.4)
+```
+
+
+5. What is the relationship between "Catholic" and fertility?
+
+
+```{r}
+## Cut and paste and adapt the code above for Infant.Mortality above
+```
+
+Q3.5 More Catholic provinces tend to have
+
+A. Higher fertility
+B. Lower fertility
+C. No clear pattern in fertility
+
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.5 = NA
+quiz.check(answer3.5)
+```
+
+
+
+## Graded Questions on Observed and Expected Effects in Switzerland
+
+> 12. Write a paragraph [< 100 words] summarizing which features (if
+> any) of the Swiss data were consistent with your expectations (from
+> our micro-economic models and your own ideas) and which features (if
+> any) were inconsistent. Feel free to provide any further
+> interpretation.
+
+
+Congratulations! You have completed the lab for week 8.
+
