@@ -521,10 +521,10 @@ lines(age.vec, ppr2.fm.vec, col = "pink", lty = 2)
 > 3. Plot your results, so that all of the vectors are on the same
 > graph. Use the following plotting options
 
-ppr2.ff.vec:  ' col ="pink", lty = 1 '  (solid pink)
-ppr2.fm.vec:  ' col ="pink", lty = 2 '  (dashed pink)
-ppr2.mf.vec:  ' col ="blue", lty = 2 '  (dashed blue)
-ppr2.mm.vec:  ' col ="blue", lty = 1 '  (solid blue)
+ppr2.ff.vec:  ' col =“red", lty = 1 '  (solid red)
+ppr2.fm.vec:  ' col =“red", lty = 2 '  (dashed red)
+ppr2.mf.vec:  ' col =“purple", lty = 2 '  (dashed purple)
+ppr2.mm.vec:  ' col =“purple", lty = 1 '  (solid purple)
 
 > Put your name on the plot (anywhere that looks fine) and turn in a
 > copy of the plot.
