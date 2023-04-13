@@ -494,18 +494,18 @@ print("Unemployment in Comparison Cities, not Miami")
 > sentences are fine here).
 
 > Graded Question 2. Modify the following chunk of code and calculate
-> the same table for Miami. Does this change your
+> the same table for the comparison cities. Does this change your
 > answer about the effect of the boatlift? (< 50 words).
 
 ```{r}
-## Miami 
-## Hint: you need to change the code defining "s" below so that it specifies Miami. Examples of how to do this are found in our earlier analysis.
-s <- age %in% 16:61 & smsarank != "Miami"
-ue.educ.table.miami <- tapply(X = esr[s],
+## not miami 
+## Hint: you need to change the code defining "s" below so that it specifies the comparison cities. Examples of how to do this are found in our earlier analysis.
+s <- age %in% 16:61 & smsarank == "Miami"
+ue.educ.table.notmiami <- tapply(X = esr[s],
                          FUN = get.ue,
                          INDEX = list(educ[s], year[s]))
-print("Unemployment in Miami")
-(ue.educ.table.miami.pretty <- round(100*ue.educ.table.miami,1))
+print("Unemployment in Comparison Cities, not Miami")
+(ue.educ.table.notmiami.pretty <- round(100*ue.educ.table.notmiami,1))
 
 ```
 
