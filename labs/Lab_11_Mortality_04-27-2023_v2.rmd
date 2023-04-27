@@ -57,13 +57,13 @@ The structure of this lab is to walk-through an analysis of education
 and longevity for White men. Your mission in the "graded questions" will then be
 to repeat the analysis for Black men, and to compare and interpret the results. 
 
-```{r include=FALSE}
+```{r}
 # Do not edit this chunk, but *do* press the green "play" button in the upper right corner to load the answer key for the quiz (the unreadable string below)
 tot = 0
 answer.key = "eJytVT2P20gM7fMriG2UAIYQa5EEV6TYS5DyiiRAalqipcFKM9r5sM/36+9xRvba0RVXuNmVNEPyvcdHun6xadqJ39bv6TPh75u6dd5LG2u24Xg+ePjz4U09GBuX119CnbNVJLcL4g94E45DoGQ78cS90McPxLajvfMUBxOodYPzkYzds4004ZlHE0905EAvyUShkX0vNf0cBMchImKanM3JOJYC+fbs3Y5344mq91UNWMaG6FMbjbNhgfdd5pFbQWWhv57oaBB6cgnIMid6K3Vfb6h6qgAI5V2U8A6p5G/EWdZUS6afil3h8zhKB2AdjzeQNsBpO6MhOAHekPzBHPAc3SKEgrzIvM0yb9cy68HD14vM25vq5e6GdikqKS/6FSIqRbYoK+c7C8W1MNu7CZMzPY1gu8+JeOcOcs2xyRybNccmR144NoWjkOz3Cl3z+WTbXAfgUCIKTAQldzBFaodiEl9Ya21jWy8c9IFGZ3s5wFRr8s3dyOdM3+DqrD7YiY2LucOmyHEQnx1ybVxT4H4R+8O11HFkxML3XgJxydWyl30CZ2gjfvYSc8kNBZCUpe1ZFBVDI2Zx84jZOxnbE+9jFkbOGsKugHBjvsfcmMd1Yx5vZzy//pAi1cyg43keVPWI8QPnDrDzWL8kCYpyLfnj3STPmT5/+gMPJ2EfXhk12YvNepyaxaQLo+Y8TtqxHpoHNZhLcU4xkDKYoFdG+XZp3zviEFxrihd3Eo8i6OHR0YG9wf7RxsGb2jUKg0tjp32J/IxrmAgM6sTPuTG4kwKXvl7a+rtgzd0GdMmEFa3QrIsURBSI5lygvA4cFnRbUM7iA6hi2DpsLsTBcFlwvRbawbmxpu+cPx9L8qvE1ZVclUZgQLm7LMbbPBqUqZ3HN9zOL529FySro3u1GtyRpEvLdmjPiiPZs+QdcYmvykrKPz7aLZfwq+HQdHSNJmmxPEyYAqJhjq4M7Sv6+tpfTfbXapWVg4cvF381551YzkOWB82V33a2buo8u3nI1XmQYg8U+L+2xL3W1v/BR9oICGui4ryGZ0KZfJyE1Pf4unzAZorlRtlu7QgZvXPTfzV/Mv0QtWEDHzSmHR3WNtr2j3h3MaSlQXgEQ52tq4X+L8T560M="
+install.packages("arm")
 library(devtools)
 devtools::install_github("josh-goldstein-git/quizify")
-install.packages("arm")
 library(arm)
 library(quizify)
 source.coded.txt(answer.key)
