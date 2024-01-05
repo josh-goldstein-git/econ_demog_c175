@@ -121,7 +121,7 @@ getting 0.0131193, it means you haven't modified the code and have
 assigned the new variable R.1850.to.1900 with the answer for 1900 to
 2000.)
 
-(Note: class demo ends about here.)
+(Note: class demo -- if given -- ends about here.)
 
 
 # The *complete* history of world population
@@ -241,9 +241,7 @@ You've finished all of the computing for the first lab!
 
 # Graded Questions 
 
-(See the syllabus for instructions on submitting your answers at 
-https://courses.demog.berkeley.edu/goldstein175/)
-
+(See bCourses https://bcourses.berkeley.edu/courses/1531929 for instructions on submitting your answers.)
 
 1. [Multiple choice] Which of the following descriptions is best for
    the history of human population growth?
