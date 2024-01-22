@@ -1,0 +1,63 @@
+library(shiny)
+shinyUI(
+    fluidPage(
+        titlePanel("Sauvy & Optimal Population"),
+        h4("Explore the economic and power optima by changing
+the marginal product and subsistence level"),
+h5("(1) Is the app working correctly when it starts up, with each optimum correct? (2) What do you expect to happen if you increase substence? Try it. (3) What do you expect if MP always declines? Try it. (4) What bugs can you detect in the app?"),
+        sidebarLayout(
+            sidebarPanel(
+                p("Adjust marginal product values"),
+                sliderInput("mp1",
+                            "MP 1",
+                            min = 0,
+                            max = +50,
+                            step = 1,
+                            value = 10,
+                            animate = F),
+                sliderInput("mp25",
+                            "MP 2",
+                            min = 0,
+                            max = +50,
+                            step = 1,
+                            value = 29,
+                            animate = F),
+                sliderInput("mp50",
+                            "MP 3",
+                            min = 0,
+                            max = +50,
+                            step = 1,
+                            value = 19,
+                            animate = F),
+                sliderInput("mp75",
+                            "MP 4",
+                            min = 0,
+                            max = +50,
+                            step = 1,
+                            value = 10,
+                            animate = F),
+                sliderInput("mp100",
+                            "MP 5",
+                            min = 0,
+                            max = +50,
+                            step = 4,
+                            value = 0,
+                            animate = F),
+                sliderInput("s_constant",
+                            "subsistence level",
+                            min = 0,
+                            max = +50,
+                            step = 1,
+                            value = 17,
+                            animate = F)
+                ),
+            mainPanel(
+                plotOutput("peakPlot", height = "800px"),
+                ##                h6("Note: insert note here"),
+                width = 8
+            )
+        )
+    )
+)
+
+
