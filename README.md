@@ -15,8 +15,10 @@
 
 ## R and RStudio
 
-As an alternative to the Demography Rstudio server, we recommend using 
+For this course we will use 
 [Berkeley's R Datahub](https://r.datahub.berkeley.edu/). Another option is to install the software on your own computer though course staff cannot help with technical issues that may arise with installation.
+
+For help getting started with the R language we recommend the [Getting Started in R tutorial](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) and the [Intro to R video playlist](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
 
 ### Using Berkeley's R Datahub
 
