@@ -39,8 +39,9 @@ from the drop-down menu.
     <img width="497" alt="image" 
 src="https://media.github.berkeley.edu/user/490/files/89d4bb6e-69ac-4c33-8437-98c8461d0456">
 
-### Install the software on your own computer
+<!-- ### Install the software on your own computer
 
  If you prefer to manage your own software, you also have the option to install R and RStudio on your own computer. This involves _two steps_:
   - First, install R based on your operating system (macOS, Windows, Linux) here: [https://cran.r-project.org/](https://cran.r-project.org/).
   - Next, download RStudio (RStudio Desktop Free version): [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+  -->
