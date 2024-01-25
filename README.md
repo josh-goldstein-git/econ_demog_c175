@@ -16,9 +16,9 @@
 ## R and RStudio
 
 For this course we will use 
-[Berkeley's R Datahub](https://r.datahub.berkeley.edu/). Another option is to install the software on your own computer though course staff cannot help with technical issues that may arise with installation.
+[Berkeley's R Datahub](https://r.datahub.berkeley.edu/). 
 
-For help getting started with the R language we recommend the [Getting Started in R tutorial](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) and the [Intro to R video playlist](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
+For help getting started with the R language we recommend the [Getting Started in R tutorial](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) (Just pages 1-3) and the [Intro to R video playlist](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP) (just the first 6 videos -- only about 15 mins total)
 
 ### Using Berkeley's R Datahub
 
