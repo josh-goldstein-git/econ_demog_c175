@@ -102,7 +102,7 @@ b) What is the new steady-state of consumption per worker? Is it
 For the following question, you may find it useful to experiment with
 the "Solow" app available at:
 ```{r}
-browseURL("https://berkeley-demog.shinyapps.io/solow/")
+browseURL("https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fsolow%2F")
 ```
 (You can also use the app to get a rough check your answers to the
 analytical questions above.)
