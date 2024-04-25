@@ -1,0 +1,164 @@
+## one-file shiny app for todaro-harris model
+
+## functions
+th.fun <- function(A.urban = 126, A.rural = 110,
+                   B.urban = 4, B.rural = 5,
+                   A.urban.prime = A.urban,
+                   A.rural.prime = A.rural,
+                   Wu.fixed = 25)
+{
+    Au <- A.urban
+    Ar <- A.rural
+    Bu <- B.urban
+    Br <- B.rural
+    Aup <- A.urban.prime
+    Arp <- A.rural.prime
+##
+    Lr = 0:100
+    Lu = 100 - Lr
+##
+    Wu = (Au - Lu)/Bu
+    Wup = (Aup - Lu)/Bu
+    Wr = (Ar - Lr)/Br
+    Wrp = (Arp - Lr)/Br
+    ##
+
+    ucol = "blue"
+    rcol = "red"
+
+    ##     par(mfrow = c(2,2))
+        par(mfrow = c(1,1))
+    my.ylim = c(0,50)
+##    plot(Lu, Wu, ylim = my.ylim, type = "l", col = "green")
+##    lines(Lu, Wup, ylim = my.ylim, type = "l", col = "green", lty = 2)
+##    plot(Lr, Wr, ylim = my.ylim, type = "l", col = "red")
+    plot(Lu, Wu, ylim = my.ylim, type = "l", col = ucol,
+         xlab = "Workers by region, L(urban) = 100 - L(rural)",
+         ylab = "wage rate",
+         lwd = 2)
+    lines(Lu, Wup, ylim = my.ylim, type = "l", col = ucol, lty = 2,
+          lwd = 2)
+    lines(rev(Lr), Wr, col = rcol, lwd = 2)
+    lines(rev(Lr), Wrp, col = rcol, lwd = 2, lty = 2)
+    text(95, Ar/Br, "D(rural)", pos = 3, col = rcol, cex = .8, font = 4)
+    text(5, Au/Bu, "D(urban)", pos = 3, col = ucol, cex = .8, font = 4)
+## now let's set the urban wage
+##    Wu.fixed = 25
+
+## expected urban wage
+    Lu.star = Au - Bu*Wu.fixed
+    Lup.star = Aup - Bu*Wu.fixed
+##    abline(h = Wu.fixed, lty =1, col = "grey", lwd = .7)
+    segments(x0 = 0, x1 = Lu.star, y0 = Wu.fixed, y1 = Wu.fixed,
+             lty = 1, col = "grey", lwd = 1)
+    segments(x0 = 0, x1 = Lup.star, y0 = Wu.fixed, y1 = Wu.fixed,
+             lty = 1, col = "grey", lwd = 1)
+    expected.Wu = Wu.fixed * Lu.star/Lu
+    expected.Wup = Wu.fixed * Lup.star/Lu
+    s <- expected.Wu <= Wu.fixed
+    sp <- expected.Wup <= Wu.fixed
+    lines(Lu[s], expected.Wu[s], lty = 3, col = "grey", lwd = 1)
+    lines(Lu[sp], expected.Wup[sp], lty = 2, col = "grey", lwd = 1)
+    axis(2, at = Wu.fixed, labels = "Wu",
+         col.axis = "grey", col = "grey")
+
+    ## how many employed,  how many employed?
+
+    ## point of intersection is
+    r.star <- Lr[which.min((expected.Wu -Wr)^2)]
+    r.star.p <- Lr[which.min((expected.Wup -Wrp)^2)]
+
+    ## abline(v = s.star)
+##    abline(v = 100 - r.star, lty = 3, col = "grey")
+    ##    abline(v = 100 - r.star.p, lty = 3, col = "grey")
+    points(x = c(Lu.star, 100 - r.star),
+           y = c(Wu.fixed,  (Ar - r.star)/Br), pch = 19)
+    points(x = c(Lup.star, 100 - r.star.p),
+           y = c(Wu.fixed,  (Arp - r.star.p)/Br), pch = 1)
+
+    e <- Lu.star/(100 - r.star)
+    ep <- Lup.star/(100 - r.star.p)
+    ue <- 1-e
+    uep <- 1-ep
+    UE <- ue * (100 - r.star)
+    UEp <- uep * (100 - r.star.p)
+    E <- e * (100 - r.star)
+    Ep <- ep * (100 - r.star.p)
+    R <- r.star
+    Rp <- r.star.p
+    ## add some notation at bottom
+    segments(x0 = 0, x1 = E, y0 = 0, lwd = 2, col = ucol)
+    text(x = (0 + E)/2, y = 0, "E", pos = 3, col = ucol)
+    segments(x0 = E , x1 = E , y0 = -1/2, y1 = 1/2, col = ucol)
+    segments(x0 = E, x1 = E + UE, y0 = 0, lwd = 2, col = "grey")
+    segments(x0 = E + UE, x1 = E + UE, y0 = -1/2, y1 = 1/2, col = ucol)
+    text(x = (E + UE + E)/2, y = 0, "UE", pos = 3, col = "grey")
+    segments(x0 = E + UE, x1 = 100, y0 = 0, lwd = 2, col = rcol)
+    text(x = (E + UE + 100)/2, y = 0, "R", pos = 3, col = rcol)
+    ## line for prime
+    segments(x0 = 0, x1 = Ep, y0 = -1, lwd = 2, col = ucol, lty = 2)
+    segments(x0 = Ep , x1 = Ep , y0 = -1 - 1/2, y1 = -1 + 1/2, col = ucol)
+    segments(x0 = Ep, x1 = Ep + UEp, y0 = -1, lwd = 2, col = "grey", lty = 2)
+    segments(x0 = Ep + UEp, x1 = Ep + UEp, y0 = -1 -1/2, y1 = -1 + 1/2,
+             col = ucol)
+    segments(x0 = Ep + UEp, x1 = 100, y0 = -1, lwd = 2, col = rcol, lty = 2)
+
+    legend("topleft",
+           legend = c(paste("E", round(E,1)),
+                      paste("UE", round(UE,1)),
+                      paste("R", round(R,1)),
+                      paste("ue rate", round(ue,2))),
+           bty = "n"
+           )
+    legend("topright",
+           legend = c(paste("E'", round(Ep,1)),
+                      paste("UE'", round(UEp,1)),
+                      paste("R'", round(Rp,1)),
+                      paste("ue'", round(uep,2))),
+           bty = "n"
+           )
+    return(NULL)
+}
+
+##
+
+library(shiny)
+
+server <- function(input, output) {
+    output$todaroPlot <- renderPlot({
+        th.fun(A.urban = 126,
+               A.rural = 110,
+               B.urban = 4,
+               B.rural = 5,
+               A.urban.prime = input$Aup,
+               A.rural.prime = input$Arp,
+               Wu.fixed = input$Wu.fixed)
+    })
+}
+
+ui <- fluidPage(
+    titlePanel("Todaro-Harris simulation"),
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("Aup",
+                        "Level of urban labor demand (ignore units)",
+                        min = 100,
+                        max = 140,
+                        value = 126),
+            sliderInput("Arp",
+                        "Level of rural labor demand (ignore units)",
+                        min = 100-10,
+                        max = 140-10,
+                        value = 120-10),
+            sliderInput("Wu.fixed",
+                        "Urban minimum wage",
+                        min = 15,
+                        max = 29,
+                        value = 25)
+        ),
+        mainPanel(plotOutput("todaroPlot"))
+    )
+)
+
+
+shinyApp(ui = ui, server = server)
