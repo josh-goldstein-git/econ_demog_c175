@@ -36,6 +36,8 @@ All of the shiny apps we use can be run from these links. Not all of the are req
 
 ### Cost of Time (supplement to lab 7) [![Cost of Time Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fcost-of-time%2F)
 
+### [Todaro-Harris Simulation](https://shiny.demog.berkeley.edu/josh/todaro-harris/)
+
 
 <!-- ### Install the software on your own computer
 
