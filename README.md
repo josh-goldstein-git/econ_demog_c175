@@ -26,7 +26,7 @@ We recommend
 
 All of the shiny apps we use can be run from these links. Not all of the are required for answering specific lab questions, but all are useful in learning the material.
 
-### Sauvy (supplement to lab 1) [![Cost of Time Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://r.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fsauvy%2F)
+### Sauvy (supplement to lab 1) [![Cost of Time Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://r.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175&urlpath=shiny%2Fecon_demog_c175%2FShinyApps%2Fsauvy%2F&branch=main&targetPath=ShinyApps)
 
 ### Malthus (supplement to lab 2) [![Malthus Shiny App](https://img.shields.io/badge/Shiny-Datahub-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](https://r.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fnew-malthus%2F)
 
