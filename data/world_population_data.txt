@@ -1,4 +1,6 @@
 ## Source: https://en.wikipedia.org/wiki/World_population
+## All estimates come from 'Past Population' table in the article 
+## except 2024 which comes from the 'UN 2024 estimates and mediam variant projections' table
 ## Notes: Population is in millions of people
 year	pop
 -8000     5
@@ -25,3 +27,4 @@ year	pop
 2005	6520
 2010	6930
 2015	7349
+2024	8160		
