@@ -1,7 +1,7 @@
 # DEMOG C175: Economic Demography
 
 ## Copy latest lab to your Datahub account and open Datahub 👉🏼 [![Repo on DataHub](https://img.shields.io/badge/Launch-UCB%20Datahub-blue.svg)](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175&urlpath=rstudio%2F)
-(Note: this button will actually copy all of the labs that have been released. We recommend adding your initials to the lab and resaving it, so that your own copy has no risk of being overwritten later in the semester. For example, rename "lab_01_world_2024.Rmd" to "myname_lab_01_world_2024.Rmd".)
+(Note: this button will actually copy all of the labs that have been released. We recommend adding your initials to the lab and resaving it, so that your own copy has no risk of being overwritten later in the semester. For example, rename "lab_01_world_2025.Rmd" to "myname_lab_01_world_2025.Rmd".)
 
 
 ## R and RStudio
