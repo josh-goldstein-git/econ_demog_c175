@@ -6,8 +6,6 @@
 
 ## R and RStudio
 
-For this course we will use 
-[Berkeley's R Datahub](https://r.datahub.berkeley.edu/). 
 
 ### Resources for Getting Started with R
 
