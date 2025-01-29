@@ -16,11 +16,6 @@ We recommend
 - [Getting Started in R tutorial](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) (Just pages 1-3)
 - [Intro to R video playlist](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP) (just the first 6 videos -- only about 15 mins total)
 
-### Using Berkeley's R Datahub
-
-- Log into the Berkeley R Datahub with your calnet credentials. 
-[https://r.datahub.berkeley.edu/](https://r.datahub.berkeley.edu/)
-(Note: the button at the top that copied the latest lab will open up Datahub automatically. But after you get the lab, you probably want to log-in directly, rather than recopy all of the labs.)
 
 ## Shiny Apps
 
