@@ -486,4 +486,4 @@ Well done. You are finished with the computing portion of Lab 5.
 >     What are some limitations of using price alone as a measure of resource scarcity?
 >     Answer in 1-2 sentences.
 
-Congratulations! You are finished with Lab 5.
+Congratulations! You are finished with Lab 4.
