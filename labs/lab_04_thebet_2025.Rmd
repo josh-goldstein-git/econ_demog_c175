@@ -1,0 +1,489 @@
+---
+title: "Econ/Demog C175 Lab 4: The Bet -- Over and over again"
+output: html_notebook
+---
+
+
+Julian Simon liked to proclaim that
+
+> The only true measure of scarcity is price ...
+
+In this lab we are going to take advantage of a database put together
+by David Jacks. The data for his paper "From Boom to Bust: A Typology
+of Real Commodity Prices in the Long Run" (2013, NBER Working Paper
+18874) has consistent series of commodity prices for everything
+ranging from barley to zinc. For our lab we've selected prices
+since 1900.
+
+We're going to ask the following:
+
+1. What has been the long-term trend in commodity prices?
+
+2. Was Simon lucky to have won the bet?
+
+3. Do commodity price trends differ by commodity in a way that we can
+   understand? (This section will be more exploratory than in past
+   labs. Here the important point is to report _what_ you find, not to
+   find a specific "right" answer.)
+
+```{r}
+# Do not edit this chunk, but *do* press the green button to the answer key for the quiz info (the unreadable string below)
+tot = 0
+answer.key = "eJzNVk2P4zYMvedXEDmMd4FASZzMYHeBwSIzLdBeiqKz94EiM7YaWfLqYz359yVlJ/Phaw69GKFok3yP5FPET5vaPfq1WMM90HMmlPMeVRTShv7smP82n4lG2ziaf3utMID0CNpW+IIVRAfrr6sVSFvlc1n9m0Ikx8F5eulgZNTOUhhtQ/RJsRXGcP9gZ6RCiA3CXzvodWzg5JKHoQb4hKIWCyh2BUWCn8lFDJ8pFL7QdzYHvkSSBrqxulzBJP8FcZkRl1PE7Jg/XBBns4mxC9+WS7Si10fdYaWlcL5esrV8bLxrdWon8MqrwcuRdopqrbStme5LHQv4cgsdeoU2gibgXUcdsNGcIAWsZoIpiA15nEXoku9cQAE7n0uiZ0j7EHVMlDfT1XkqgSBQHmohmu+vtJWZ53I6KINj/jjSNppP9M5pAdYBH36gp7xa98dIPxhNEUAZlJ7QSzAugjvAL8ftNzqeCLaJjUt1k/PlUeGw5Wp9y9w1uqYg5JOWj3mkFwN3lcNgi0gh3RGMPtKID4kgEtnVAoK2FIv5a5NqOC1nKFcEhzuT/OlNyl4GitR/SCXeEl1moifzOTjmF56z9WdtHS9diq4lpApaDEHWdLJ3Kb6jc4/c14KKHcMWM5GJY/jUqGI8L8YPBDykTKKiIIFR03gcKDwB7V0yFRAJdiai66WvoHgsJm2+1hb8T8FeOrbJHdtMO7Z5qyijuTMmC6VHGZyVe4MLwBeFXYRH6BtNI0Q1vlYOP2iAZC2JHH1gkFDpigdyhPogJrxvrsb7UPFFV2gl6N1RZ3umUzkbvTOGBJ890kfY8wIq+oWGGSUiq6TQBwFPiHAW1L7vhY5eE2ciHZf5OhFd0313Hae+V659bmnD8CbKcLyXMT5XrrfGyerGaHt81tX99uvd6vZGHfh3uc0rKImdoFIIFAMOpM6Qt6yiG4Fo9BhocYnhQEQofLN2m6wkm6m+DY5LE0fzj0EuRiZamg1oeTYD4VYsNx96srma5I2RdoxK8QxlGRsLCamuMcQwgL64Z6I4F1YsaMZkhN8bb3jUWI/2GLPmO/uOkDITMtGhzXglXQgZdtMGpN6T8mqL36Cggmz85LyutZVGUApB5CcTP2doTIByFT2aZI98qwUcaBneOqsofzeh8lqyckYCFms6+IUwQM/9DK9jTrcrj94i/8cJDp50S8M1yEIj6bP+HXPb3KHtdJS270dpNEfmhhuZhWG9umPcga/PSNbqIwPbqw3TGOmuXHJS/guRlXQlbr+I+X+1gFbM"
+devtools::install_github("josh-goldstein-git/quizify")
+library(quizify)
+source.coded.txt(answer.key)
+```
+
+>  Note: the most helpful reading for this lab is David Lam (2011),
+> "How the World Survived the Population Bomb"
+
+
+# Part 1. Read in data and graph trends in commodity prices
+
+These commodity prices are modified in two ways. First, the nominal
+prices have been adjusted for inflation. Second, all prices are
+indexed to 100 in 1900 (we call this the base year). 
+This makes it easy for us to compare across commodities and over time.
+
+More details: nominal prices are those that are experienced by people, but more 
+importantly they can vary between periods because of inflation. For instance, the 
+fact that the price of a product increases from one year to another, may be from
+a change in its value, but also just as a result in increasing prices of its inputs.
+So, to account for changing prices (inflation), economists evaluate prices in 
+*real* terms, which 'removes' the effect of changing prices, so that we can 
+compare values over time. When you look at values in real terms, you are comparing
+apples with apples.  
+
+```{r}
+## get commodity data from a file on our server
+file <- "https://raw.githubusercontent.com/josh-goldstein-git/econ_demog_c175/main/data/Real_commodity_prices_1900_2015.csv"
+commod <- read.table(file, sep = ",") # read the data into, with column header
+head(commod) # looks at first few lines
+```
+You can scroll to the right and left using the black arrows in the display of the data. For the question below, scroll to the right until you find the column labelled 'Zinc'. 
+
+Q1.1 What does the number 110.51 under Zinc mean?
+
+A.  Zinc costs 110.51 cents per pound
+
+B.  Zinc prices increased by about 110 percent between 1900 and 1904
+
+C.  Zinc cost about 10.51 percent more in *nominal* terms in 1904 than in 1900
+
+D.  Zinc cost 10.51 percent more in *real* terms in 1904 than in 1900
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.1 = NA
+quiz.check(answer1.1)
+```
+
+
+Q1.2 What is the major use of Chromium?
+
+A.  For browsing the internet
+
+B.  As Chrome plating and stainless steel
+
+C.  As vitamin supplement for breakfast cereal
+
+D.  As a precious metal for storing value
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer1.2 = NA
+quiz.check(answer1.2)
+```
+
+To select a value from this matrix of data you can index by the label
+of the row and column. For example,
+```{r}
+commod["1963", "Chromium"]
+## note for those interested in R:
+## the index "1963" needs to be in quotes, otherwise R will think it
+## is the 1963rd row of the matrix. Here we're telling it that it is
+## the row labeled "1963".
+```
+tells us that the real price of Chromium in 1963 was 55 percent of that
+in 1900.
+
+> (Note: in the rest of the lab, when we say "price" we mean "real
+> price", unless otherwise stated.)
+
+# Part 2. Visualizing commodity prices
+
+Let's see how the price of Chromium varies over time.
+
+```{r}
+year.vec <- rownames(commod)
+plot(year.vec, commod$Chromium, type = "l")
+abline(v = 1980)                        # the date of "the bet"
+```
+Q2.1 How would you describe the history of Chromium prices?
+
+A. Steadily rising
+
+B. Steadily falling
+
+C. Very volatile, with little clear long-term trend
+
+D. Very volatile, with a clear upward trend
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.1 = NA
+quiz.check(answer2.1)
+```
+
+## What does "trendless" data look like?
+
+Imagine a "random walk", in which prices go up or down each year by
+some random amount that averages zero. Each realization of this random
+walk will have, by luck, some trend, but the underlying process
+generating the randomness has no trend -- on average the change is
+"zero". It is very easy to falsely interpret a random walk as having
+an underlying trend. The subject of how to make inferences about the
+trend of a time series is covered in an econometrics or statistics
+class. For now, we will just look at some realizations of the random
+walk to get a feeling for what random realizations of trendless
+data can look like.
+
+```{r}
+## here we create a function that will plot a random walk. 
+plot.random.walk <- function(seed)
+{
+    set.seed(seed)                      # this initializes the random
+                                        # number generator used in
+                                        # sample(). If we use the same
+                                        # seed, we will get the same
+                                        # set of "random" numbers.
+    random.steps <- sample(x = c(-1,1), size = 40, replace = TRUE)
+    ## this selects the number -1 or 1 randomly 40 times
+    random.walk <- cumsum(random.steps)
+    ## this turns the random steps into a walk by summing them up.
+    ## cumsum(c(1,2,3)) returns a vector with values 1, 3, and 6.
+    plot(1:40, random.walk, type = "l")
+}
+```
+
+Here's an example
+```{r}
+plot.random.walk(seed = 23)             # Here we set seed to 23
+```
+
+
+Modify the code below to try 1,2, 3, and 4 as "seeds"
+```{r}
+plot.random.walk(seed = 23)
+plot.random.walk(seed = 23)
+plot.random.walk(seed = 23)
+plot.random.walk(seed = 23)
+```
+
+Q.2.2 Which of the following seems to be true
+
+A. Even if price changes are random, averaging zero, the realization
+of a random process can look like it has a trend.
+
+B. A historical trend is the one reality we observe and we shouldn't let
+anyone confuse us with alternative random realizations.
+
+C. Thinking about randomness may help us understand and interpret the
+reality we see and thus is a subject worth of study.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.2 = NA
+quiz.check(answer2.2)
+```
+
+
+## Repeating for Tin
+
+Plot the price of tin. You can use the same code we used for Chromium, modifying just slightly.
+```{r}
+## put your code for Tin here
+## (Hint: you can copy and modify the commands we used for Chromium, and modify the name of the column of interest)
+plot(year.vec, commod$Chromium, type = "l")
+abline(v = 1980)                        # the date of "the bet"
+```
+
+Q2.3 Why do you think Ehrlich chose Tin as one of his commodities to bet on?
+
+A.  Tin is difficult to substitute for
+
+B.  Tin had shown a sharp increase in price for the decade or so before 1980 and so it looked like it would continue.
+
+C.  The price had been going down before 1980 and was ready for a recovery
+
+D.  There was evidence that the tin mines were running out of ore
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer2.3 = NA
+quiz.check(answer2.3)
+```
+
+
+# Part 3. Replicating actual bet
+
+In the original bet, Ehrlich was allowed to choose any commodities he
+wished. He chose Chromium, Copper, Tin, Tungsten, and Nickel. In our
+data, we don't have Tungsten. We can check to see if Simon still wins
+with the four commodities we have.
+
+> We strongly suggest to see the Lam (2011) reading, p. 1242 for 
+an account of the bet.
+
+We will use a function to compare commodities over time. This uses the
+indexing by label we did above. It returns the change in value of a
+$1000 purchase of the commodity basket in the start year. So if the
+function returns +100, this means that the value of the commodity
+basket increased by $100.
+
+Q3.1 If the value of the basket increased by $100, who would win?
+
+A. Simon
+
+B. Ehrlich
+
+C. Neither, because the value of the basket doesn't tell us if
+*all* of the commodities increased in price at the same time.
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.1 = NA
+quiz.check(answer3.1)
+```
+
+
+```{r}
+# This is the function described above.
+bet.fun <- function(start, end, basket.vec, data)
+{
+    ## start = 1980
+    ## end = 1990
+    ## data = commod
+    ## basket.vec <- c("Copper", "Chromium", "Nickel", "Tin")
+    year <- rownames(data)
+    start.price <- data[year == start, basket.vec]
+    end.price   <- data[year == end, basket.vec]
+    ## we invest 1000, buying an equal $ amount in each commodity.
+    start.funds <- 1000
+    dollars.per.commod <- start.funds/length(basket.vec) # e.g. $250 with 4
+    ## amount purchased of each commodity
+    holdings.vec <- dollars.per.commod/start.price
+    ## value at the end
+    value.at.end <- sum(holdings.vec * end.price)
+    change.in.value <- value.at.end - start.funds
+    return(change.in.value)
+}
+
+who.wins.fun <- function(change.in.value)
+{
+    ifelse(change.in.value > 0, "ehrlich", "simon")
+}
+
+```
+
+Let's try this for 1980 to 1990 with Ehrlich's basket.
+
+```{r}
+ehrlich.basket.vec <- c("Copper", "Chromium", "Nickel", "Tin")
+original.bet.result <- bet.fun("start" = 1980,
+                      "end" = 1990,
+                      "basket.vec" = ehrlich.basket.vec,
+                      "data" = commod)
+who.wins.fun(original.bet.result)
+```
+
+Q3.2 How much would Simon have won with our version of the "bet"? 
+Hint: what was the value of the bet result? Check the original.bet.result object
+
+A. About 300 dollars
+
+B. He wouldn't have won. He would have lost about 300 dollars
+
+C. About 500 dollars
+
+D. About 100 dollars
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer3.2 = NA
+quiz.check(answer3.2)
+```
+
+
+
+# Part 4. Does Simon win in other periods?
+
+Commodities are highly volatile.  Even if commodities were generally
+rising, Ehrlich could have been unlucky about the timing of his bet.
+
+Let's check over all years since 1900. We can construct a "loop" using
+R that will repeat the bet according to our instructions. We can then
+save the output in a vector and make a judgement about whether Ehrlich
+was simply unlucky.
+
+Here's a simple example of a loop, in which we repeat an action 7 times,
+each time increasing the value of "i", and printing this value along with a 
+label "iteration".
+```{r}
+for (i in 1:7)   ## the variable "i" takes the value 1, 2, 3, ...
+{
+    ## anything in between {} is done once
+    ## for each value that "i" takes
+    print(c("iteration", i))
+}
+```
+
+Now let's do a loop to see who won the bet in every year of the last
+century.
+
+```{r}
+start.vec <- 1900:2005        ## a vector of years to start the bet
+bet.result.vec <- rep(NA, length(start.vec)) ## an empty vector to be
+                                             ## used to store the
+                                             ## results
+names(bet.result.vec) <- start.vec ## labeling the elements (you can ignore)
+for (i in 1:length(start.vec))
+{
+    bet.result.vec[i] <- bet.fun(start = start.vec[i],
+                                 end = start.vec[i] + 10,
+                                 basket.vec = ehrlich.basket.vec,
+                                 data = commod)
+}
+print(bet.result.vec)
+```
+
+To summarize our results, let's look at them in several ways.
+
+Plot the numbers
+```{r}
+plot(start.vec, bet.result.vec)
+abline(h = 0)
+text(1960, 1500, "Ehrlich wins", col = "blue")
+text(1960, -250, "Simon wins", col = "red")
+```
+In the graph, it looks like Ehrlich would have won more of the time. But not a lot more.
+
+Let's tabulate how many times Ehrlich and Simon would have won:
+```{r}
+## Convert to a vector of "simon" and "ehrlich", depending on who won
+winners.vec <- who.wins.fun(bet.result.vec)
+print(winners.vec)
+```
+```{r}
+## count number of times each won using the "table()" function
+table(winners.vec)
+```
+
+Q4.1 What percent of the time would Ehrlich have won of the 106 simulated bets from 1900 to 2005?
+
+A. About 62 percent
+
+B. About 58 percent
+
+```{r}
+##  "Replace the NA with your answer (e.g., 'A' in quotes)"
+answer4.1 = NA
+quiz.check(answer4.1)
+```
+
+
+Make a fancier plot which shows all the periods when each would've won. (You don't need to understand this code.)
+```{r}
+plot(start.vec, bet.result.vec, type = "n") #an empty plot
+abline(h = 0)
+e <- which(winners.vec == "ehrlich")    # T or F, to subset text()
+s <- which(winners.vec == "simon")
+text(x = start.vec[e], y = bet.result.vec[e], labels = "e", col = "blue")
+text(x = start.vec[s], y = bet.result.vec[s], labels = "s", col = "red")
+text(1960, 1500, "Ehrlich wins", col = "blue")
+text(1960, -250, "Simon wins", col = "red")
+```
+
+
+# 5. Generalizing the bet to other commodities
+
+A change in the supply of a particular commodity may or may not cause
+a large price change -- depending on the availability of
+substitutes. (Note: the results from this section will be useful for
+your write-up of the graded questions at the end of the lab.)
+
+The following code provides a template for a single commodity, in this
+case "Chromium" (but you can change the commodity).
+
+```{r}
+start.vec <- 1900:2005
+result.vec <- rep(NA, length(start.vec))
+for (i in 1:length(start.vec))
+  {
+  result.vec[i] <- bet.fun(start = start.vec[i],
+                      end = start.vec[i] + 10,
+                      basket.vec = c("Chromium"),
+                      data = commod)
+}
+winner.vec <- who.wins.fun(result.vec)
+cat("counts:\n")
+table(winner.vec)
+cat("proportions:\n")
+prop.table(table(winner.vec))
+```
+
+Well done. You are finished with the computing portion of Lab 5.
+
+# Part 5. Graded Questions
+
+> 1. What relationship did Ehrlich expect to hold between commodity
+>    prices and population growth?
+
+> 2. Who won the bet in 1990? Given our analysis of other time
+>    periods, would you say that the winner was “lucky” or “right”, or
+>    both?  [Explain your answer in 50 to 100 words.]
+
+> As noted in the lab, this section is for you to explore and describe
+> what you found. Whether what you find is conclusive or inconclusive,
+> you can still get full credit by reporting whatever you found.
+
+> 3. Choose another easily substitutable commodity from the
+>    database. Conduct the analysis of its price as the previous part
+>    of the lab and answer the following questions.
+
+
+> 3.1) Why do you think this commodity would be easily substitutable,
+>      explaining what “service” it provides with 1 or 2 sentences.
+
+> 3.2) Attach a plot of the real price of your chosen commodity and comment on its trend
+> up to 1980 in 1 sentence.
+> Hint: you can modify code in section 2.
+
+> 3.3) Attach a plot of the *change* of prices (“bet.result”) of the
+>      chosen commodity. 
+
+> Hint 1: there would only be your chosen commodity in the
+> “basket.vec”. You can either modify the original
+> “ehrlich.basket.vec” or create your own “basket.vec”. Remember to
+> modify for-loop consistently.
+
+> Hint 2: you don’t need to show whether Ehrlich or Simon win about
+> this commodity. But labelling the plot with different colors can
+> help you understand the general trend.
+
+> Note (NOT REQUIRED): To make it a better graph, you can add a title
+> to the graph indicating the commodity you choose adding ‘main =
+> “commodity name”’ to the syntax.
+
+> 4. Choose a commodity from the database which you think would be
+>    hard to substitute for. And explain why you think this commodity
+>    would NOT be easily substituted, explaining what “service” it
+>    provides. (In 1 or 2 sentences) [Note: you don't need to analyze
+>    the data for this problem.]
+
+> *5. The Ehrlich-Simon bet was based on the idea that resource prices reflect scarcity.
+>     What are some limitations of using price alone as a measure of resource scarcity?
+>     Answer in 1-2 sentences.
+
+Congratulations! You are finished with Lab 5.
