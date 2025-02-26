@@ -307,4 +307,4 @@ sustainable rate found in part 4.c than  or if we harvested .02 more
 than the sustainable rate?
 
 
-Congratulations! You've finished Lab 6. 
+Congratulations! You've finished Lab 5. 
