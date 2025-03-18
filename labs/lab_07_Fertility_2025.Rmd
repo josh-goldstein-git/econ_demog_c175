@@ -52,8 +52,7 @@ based on the initial values of $(w, p, c, and I)$ and one for separate
 values $(w', p', c', and I')$. The app is available at
 
 ```{r}
-#browseURL("http://shiny.demog.berkeley.edu/josh/")
-browseURL("https://shiny.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175_2023&branch=main&urlpath=shiny%2Fecon_demog_c175_2023%2Fshiny%2Fcost-of-time%2F")
+browseURL("https://r.datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fjosh-goldstein-git%2Fecon_demog_c175&urlpath=shiny%2Fecon_demog_c175%2FShinyApps%2Fcost-of-time%2F&branch=main&targetPath=ShinyApps/econ_demog_c175")
 
 ```
 under cost_of_time. 
